@@ -11,6 +11,6 @@
 |
 */
 
-Route::get('/', 'HomeController@index');
-
-Route::resource('books', 'BooksController');
+Route::get('/', function () {
+    return view('welcome');
+});
