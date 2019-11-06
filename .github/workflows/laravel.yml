@@ -12,13 +12,15 @@ jobs:
     - name: Install Dependencies
       run: composer install --working-dir ./cuisinator/. -q --no-ansi --no-interaction --no-scripts --no-suggest --no-progress --prefer-dist
     - name: Generate key
-      run: php ./cuisinator/artisan key:generate
+      run: |
+        php ./cuisinator/artisan key:generate
+        php artisan db:seed
     - name: Create Database
       run: |
-        mkdir -p database
-        touch database/database.sqlite
+        mkdir -p ./cuisinator/database
+        touch ./cuisinator/database/database.sqlite
     - name: Execute tests (Unit and Feature tests) via PHPUnit
       env:
         DB_CONNECTION: sqlite
-        DB_DATABASE: database/database.sqlite
-      run: cuisinator/vendor/bin/phpunit
+        DB_DATABASE: ./cuisinator/database/database.sqlite
+      run: cuisinator/vendor/bin/phpunit ./cuisinator/tests/Unit/ExampleTest.php
