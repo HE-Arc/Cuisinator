@@ -14,8 +14,8 @@ class CreateForeignKeyQuantiteTable extends Migration
     public function up()
     {
         Schema::table('Quantite', function (Blueprint $table) {
-            $table->foreign('id_recette')->references('id')->on('Recette');
-            $table->foreign('id_aliment')->references('id')->on('Aliment');
+            $table->foreign('id_recette')->references('id')->on('recettes');
+            $table->foreign('id_aliment')->references('id')->on('aliments');
             $table->foreign('id_unite')->references('id')->on('Unite');
         });
     }
@@ -28,8 +28,8 @@ class CreateForeignKeyQuantiteTable extends Migration
     public function down()
     {
         Schema::table('Quantite', function (Blueprint $table) {
-            $table->dropForeign('Quantite_id_recette_foreign');
-            $table->dropForeign('Quantite_id_aliment_foreign');
+            $table->dropForeign('Quantite_id_recettes_foreign');
+            $table->dropForeign('Quantite_id_aliments_foreign');
             $table->dropForeign('Quantite_id_unite_foreign');
         });
     }
