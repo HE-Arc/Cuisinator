@@ -16,6 +16,8 @@ class DatabaseSeeder extends Seeder
             UsersTableSeeder::class,
             AlimentsTableSeeder::class,
             UnitesTableSeeder::class,
+            RecettesTableSeeder::class,
+            QuantiteTableSeeder::class,
         ]);
     }
 }

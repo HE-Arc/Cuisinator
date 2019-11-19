@@ -20,7 +20,6 @@ class UnitesTableSeeder extends Seeder
         $unite->multiple = 1;
         $unite->save();
 
-        
         $unite = new Unite();
         $unite->nom = 'Gramme';
         $unite->abbrv = 'g';
@@ -40,22 +39,21 @@ class UnitesTableSeeder extends Seeder
         $unite->multiple = 66.6;
         $unite->id_type =  DB::table('unites')->where('nom', '=', 'Litre')->first()->id;
         $unite->save();
-    
+
         $unite = new Unite();
         $unite->nom = 'Cuillère à soupe (solide)';
         $unite->abbrv = 'cs (s)';
         $unite->multiple = 66.6;
         $unite->id_type =  DB::table('unites')->where('nom', '=', 'Kilogramme')->first()->id;
         $unite->save();
-    
-        
+
         $unite = new Unite();
         $unite->nom = 'Cuillère à café (liquide)';
         $unite->abbrv = 'càc (l)';
         $unite->multiple = 200;
         $unite->id_type =  DB::table('unites')->where('nom', '=', 'Litre')->first()->id;
         $unite->save();
-    
+
         $unite = new Unite();
         $unite->nom = 'Cuillère à café (solide)';
         $unite->abbrv = 'càc (s)';
@@ -68,6 +66,12 @@ class UnitesTableSeeder extends Seeder
         $unite->abbrv = 'ml';
         $unite->multiple = 1000;
         $unite->id_type = DB::table('unites')->where('nom', '=', 'Litre')->first()->id;
+        $unite->save();
+
+        $unite = new Unite();
+        $unite->nom = 'Pièce';
+        $unite->abbrv = 'pce';
+        $unite->multiple = 1;
         $unite->save();
     }
 }

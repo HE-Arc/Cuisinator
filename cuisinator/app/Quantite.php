@@ -11,5 +11,5 @@ class Quantite extends Model
      *
      * @var string
      */
-    protected $table = 'Quantite';
+    protected $table = 'quantites';
 }
