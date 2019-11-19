@@ -6,7 +6,6 @@ jobs:
   laravel-tests:
     runs-on: ubuntu-latest
     steps:
-    
     - name: Setup MySQL server
       uses: mirromutth/mysql-action@v1.1
       with:
@@ -32,6 +31,5 @@ jobs:
         touch ./cuisinator/database/database.sqlite
         php ./cuisinator/artisan migrate
         php ./cuisinator/artisan db:seed
- 
     - name: Execute tests (Unit and Feature tests) via PHPUnit
       run: cuisinator/vendor/bin/phpunit ./cuisinator/tests/Unit/ExampleTest.php
