@@ -49,6 +49,30 @@ html, body {
     margin-bottom: 30px;
 }
 
-.border {
+.bordered {
     border: 1px solid red;
+}
+
+.spaced-inside {
+    padding: 1rem;
+}
+
+.spaced-bottom {
+    margin-bottom: 1em;
+}
+
+.aliment-image-icon {
+    object-fit: cover;
+    width: 100px;
+    height: 100px;
+}
+
+.form-control-borderless {
+    border: none;
+}
+
+.form-control-borderless:hover, .form-control-borderless:active, .form-control-borderless:focus {
+    border: none;
+    outline: none;
+    box-shadow: none;
 }
