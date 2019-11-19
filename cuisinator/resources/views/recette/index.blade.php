@@ -9,7 +9,15 @@
             <!-- TODO Search box here!!! -->
         </div>
         <div class="row">
-            <div class="col-md-3 border" ></div>
+            <div class="col-md-3 border" id="liste-aliments">
+
+            </div>
+            <div class="col-md-3 border" id="liste-aliments-possedes">
+
+            </div>
+            <div class="col-md-6 border" id="liste-recettes">
+
+            </div>
         </div>
     </main>
 
