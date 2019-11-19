@@ -14,7 +14,7 @@ class UsersTableSeeder extends Seeder
         $u = new User();
         $u->name = 'cuisinator';
         $u->email = 'cuisinator@cuisinator.net';
-        $u->password = bcrypt('cuisinator');
+        $u->password = password_hash('cuisinator',PASSWORD_BCRYPT);
         $u->role = "user";
         $u->save();
     }
