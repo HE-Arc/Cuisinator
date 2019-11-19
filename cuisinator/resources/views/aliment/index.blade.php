@@ -1,5 +1,6 @@
 @extends('template.app')
 
+@section('page-title') Aliments @endsection
 @section('content')
     <h1>Aliments</h1>
     @foreach($aliments as $a)

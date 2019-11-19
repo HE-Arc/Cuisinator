@@ -19,6 +19,7 @@ Auth::routes(); //['register' => false]
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::resource('/aliments', 'AlimentsController');
+Route::resource('/recettes', 'RecetteController');
 
 Route::get('/administration', 'AdministrationController@index')->name('Administration');
 
