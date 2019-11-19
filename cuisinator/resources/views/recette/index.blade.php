@@ -9,7 +9,7 @@
             <!-- TODO Search box here!!! -->
         </div>
         <div class="row">
-            <div class="col-md-3 border" data-content=""></div>
+            <div class="col-md-3 border" ></div>
         </div>
     </main>
 
