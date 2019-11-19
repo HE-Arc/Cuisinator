@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Aliment;
 use App\Recette;
 use Illuminate\Http\Request;
 
@@ -15,7 +16,8 @@ class RecettesController extends Controller
     public function index()
     {
         //
-        return view("recettes.index");
+        $aliments = Aliment::all();
+        return view("recette.index", ['aliments' => $aliments]);
     }
 
     /**

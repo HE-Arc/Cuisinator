@@ -16,11 +16,13 @@ class AlimentsTableSeeder extends Seeder
         $a1 = new Aliment();
         $a1->nom = 'Avocat';
         $a1->id_createur = 1;
+        $a1->nom_photo = 'avocat.jpg';
         $a1->save();
 
         $a2 = new Aliment();
         $a2->nom = 'Jus de citron';
         $a2->id_createur = 1;
+        $a2->nom_photo = 'jus-citron.jpg';
         $a2->save();
 
         $a3 = new Aliment();
