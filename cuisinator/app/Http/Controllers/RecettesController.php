@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Recette;
 use Illuminate\Http\Request;
 
-class RecetteController extends Controller
+class RecettesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +15,7 @@ class RecetteController extends Controller
     public function index()
     {
         //
-        return view("recette.index");
+        return view("recettes.index");
     }
 
     /**
@@ -48,6 +48,9 @@ class RecetteController extends Controller
     public function show(Recette $recette)
     {
         //
+        return view("recettes.show", [
+            'recette' => $recette
+        ]);
     }
 
     /**
