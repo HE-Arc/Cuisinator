@@ -15,6 +15,7 @@ class RecetteController extends Controller
     public function index()
     {
         //
+        return view("recette.index");
     }
 
     /**
