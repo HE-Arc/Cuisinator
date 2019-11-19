@@ -15,7 +15,13 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes();
+Auth::routes(); //['register' => false]
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::resource('/aliments', 'AlimentsController');
+
+Route::get('/administration', 'AdministrationController@index')->name('Administration');
+
+Route::get('profile', function () {
+    // Only authenticated users may enter...
+})->middleware('auth');
