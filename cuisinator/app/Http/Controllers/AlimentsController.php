@@ -71,7 +71,8 @@ class AlimentsController extends Controller
      */
     public function update(Request $request, Aliment $aliment)
     {
-        //
+        echo $request;
+        echo $aliment;
     }
 
     /**
@@ -82,6 +83,7 @@ class AlimentsController extends Controller
      */
     public function destroy(Aliment $aliment)
     {
-        //
+        echo $aliment;
+        Aliment::destroy($aliment->id);
     }
 }
