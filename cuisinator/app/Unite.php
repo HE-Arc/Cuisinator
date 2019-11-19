@@ -12,5 +12,5 @@ class Unite extends Model
      *
      * @var string
      */
-    protected $table = 'Unite';
+    protected $table = 'unites';
 }
