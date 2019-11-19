@@ -20,7 +20,7 @@
     <link src="https://cdnjs.cloudflare.com/ajax/libs/intro.js/2.9.3/introjs.min.css" rel="stylesheet" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/intro.js/2.9.3/intro.min.js"></script>
 
-    <!-- Styles -->
+    <!-- Styles --> 
     <style>
         html, body {
             background-color: #fff;
