@@ -32,6 +32,6 @@ jobs:
         touch ./cuisinator/database/database.sqlite
         php ./cuisinator/artisan migrate
         php ./cuisinator/artisan db:seed
- 
+        php ./cuisinator/artisan ui bootstrap --auth
     - name: Execute tests (Unit and Feature tests) via PHPUnit
       run: cuisinator/vendor/bin/phpunit ./cuisinator/tests/Unit/ExampleTest.php
