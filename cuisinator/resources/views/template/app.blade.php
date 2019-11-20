@@ -49,7 +49,7 @@
         <ul class="navbar-nav ml-auto">
             @auth
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ url('/administration') }}">username</a>
+                    <a class="nav-link" href="{{ url('administration') }}">username</a>
                 </li>
                 <li class="nav-item">
                 <a class="nav-link" href="{{ route('logout') }}"
