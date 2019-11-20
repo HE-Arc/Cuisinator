@@ -7,11 +7,11 @@
         <h1 class="pb-4 mt-4 mb-2 border-bottom text-center title">Cuisinator</h1>
 
         <div class="row">
-            <div class="col-md-3 container-fluid spaced-inside">
-                <div class="container-fluid">
+            <div class="col-md-3 container spaced-inside">
+                <div class="container">
                     <div class="row p-3 border bg-light rounded-lg" id="liste-aliments">
 
-                        <div class="col-md-12 spaced-bottom">
+                        <div class="col-12 spaced-bottom">
                             <form class="form-inline">
                                 <input class="form-control col" type="search" placeholder="Chercher un aliment" />
                                 <button class="form-control btn btn-success justify-content-end" type="submit"><i class="fas fa-search"></i></button>
@@ -19,7 +19,7 @@
                         </div>
 
                         @foreach($aliments as $a)
-                            <figure class="figure col-md-3">
+                            <figure class="figure col-lg-4 col-md-12 col-sm-3 col-xs-6">
                                 <div>
                                     <img src="{{ URL::asset('photos-aliments/' . ((!is_null($a->nom_photo))? $a->nom_photo : "default.jpg" )) }}"
                                          alt="{{$a->nom}}" class="figure-img rounded aliment-image-icon" />
@@ -31,15 +31,15 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-3 container-fluid">
-                <div class="container-fluid">
+            <div class="col-md-3 container">
+                <div class="container">
                     <div class="row p-3 border bg-light rounded-lg" id="liste-aliments-possedes">
 
                     </div>
                 </div>
             </div>
-            <div class="col-md-6 container-fluid">
-                <div class="container-fluid">
+            <div class="col-md-6 container">
+                <div class="container">
                     <div class="row p-3 border bg-light rounded-lg" id="liste-recettes">
 
                     </div>
