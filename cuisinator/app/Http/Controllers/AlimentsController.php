@@ -102,11 +102,16 @@ class AlimentsController extends Controller
      */
     public function destroy(Aliment $aliment)
     {
-        $aliment = Aliment::destroy($aliment->id);
-
+        if($aliment->recettes()->count() > 0){
+            return response()->json([
+                'error' => true,
+                'message' => "Aliment is still part of a recette",
+            ], 200);
+        }
+        
         return response()->json([
             'error' => false,
-            'aliment'  => $aliment,
-        ], 200);
+            'message' => "",
+        ], 200);   
     }
 }
