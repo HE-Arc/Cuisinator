@@ -16,7 +16,7 @@ class AlimentsController extends Controller
     {
         //
         $alim = Aliment::all();
-        return view("aliment.index", ['aliments' => $alim]);
+        return view("aliments.index", ['aliments' => $alim]);
     }
 
     /**

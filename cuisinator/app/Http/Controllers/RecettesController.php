@@ -17,7 +17,7 @@ class RecettesController extends Controller
     {
         //
         $aliments = Aliment::all();
-        return view("recette.index", ['aliments' => $aliments]);
+        return view("recettes.index", ['aliments' => $aliments]);
     }
 
     /**
