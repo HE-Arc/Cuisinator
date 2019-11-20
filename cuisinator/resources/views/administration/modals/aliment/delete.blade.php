@@ -66,7 +66,7 @@
             success: function(data) {
                 $('#frmDeleteTask').trigger("reset");
                 $("#frmDeleteTask .close").click();
-                //window.location.reload();
+                window.location.reload();
             },
             error: function(data) {
               var errors = $.parseJSON(data.responseText);
