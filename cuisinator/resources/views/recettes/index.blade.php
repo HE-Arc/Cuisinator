@@ -19,7 +19,7 @@
                         </div>
 
                         @foreach($aliments as $a)
-                            <figure class="figure col-lg-4 col-md-12 col-sm-3 col-xs-6">
+                            <figure class="figure col-lg-4 col-md-12 col-sm-3 col-xs-6 draggable" draggable="true" ondragstart="drag(event)">
                                 <div>
                                     <img src="{{ URL::asset('photos-aliments/' . ((!is_null($a->nom_photo))? $a->nom_photo : "default.jpg" )) }}"
                                          alt="{{$a->nom}}" class="figure-img rounded aliment-image-icon" />
@@ -33,7 +33,7 @@
             </div>
             <div class="col-md-3 container spaced-inside fill-parent">
                 <div class="container fill-parent">
-                    <div class="row p-3 border bg-light rounded-lg fill-parent" id="liste-aliments-possedes">
+                    <div class="row p-3 border bg-light rounded-lg fill-parent" id="liste-aliments-possedes" ondrop="drop(event)" ondragover="allowDrop(event)">
 
                     </div>
                 </div>
@@ -47,5 +47,22 @@
             </div>
         </div>
     </main>
+@endsection
 
+@section('scripts')
+    <script type="text/javascript">
+        function allowDrop(ev) {
+            ev.preventDefault();
+        }
+
+        function drag(ev) {
+            ev.dataTransfer.setData("text", ev.target.id);
+        }
+
+        function drop(ev) {
+            ev.preventDefault();
+            var data = ev.dataTransfer.getData("text");
+            ev.target.appendChild(document.getElementById(data));
+        }
+    </script>
 @endsection
