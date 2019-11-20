@@ -12,4 +12,8 @@ class Aliment extends Model
         ->using('App\Quantite')
         ->withPivot('qte', 'id_unite');
     }
+
+    public function creator(){
+        return $this->belongsTo('App\Users');
+    }
 }
