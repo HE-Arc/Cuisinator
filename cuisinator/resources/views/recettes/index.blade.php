@@ -7,9 +7,9 @@
         <h1 class="pb-4 mt-4 mb-2 border-bottom text-center title">Cuisinator</h1>
 
         <div class="row fill-parent">
-            <div class="col-md-3 container spaced-inside fill-parent">
-                <div class="container fill-parent">
-                    <div class="row p-3 border bg-light rounded-lg fill-parent" id="liste-aliments">
+            <div class="col-md-3 container spaced-inside min-vh-100">
+                <div class="container min-vh-100">
+                    <div class="row p-3 border bg-light rounded-lg" id="liste-aliments">
 
                         <div class="col-12 spaced-bottom">
                             <form class="form-inline">
@@ -31,7 +31,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-3 container spaced-inside fill-parent">
+            <div class="col-md-3 container spaced-inside">
                 <div class="container fill-parent">
                     <div class="row p-3 border bg-light rounded-lg fill-parent" id="liste-aliments-possedes" ondrop="drop(event)" ondragover="allowDrop(event)">
 
