@@ -24,6 +24,7 @@
                                     <img src="{{ URL::asset('photos-aliments/' . ((!is_null($a->nom_photo))? $a->nom_photo : "default.jpg" )) }}"
                                          alt="{{$a->nom}}" class="figure-img rounded aliment-image-icon" />
                                 </div>
+
                                 <figcaption class="figure-caption">{{$a->nom}}</figcaption>
                             </figure>
                         @endforeach
