@@ -1,4 +1,5 @@
-html, body {
+html,
+body {
     background-color: #fff;
     color: #636b6f;
     font-family: 'Nunito', sans-serif;
@@ -39,7 +40,7 @@ html, body {
     font-size: 84px;
 }
 
-.links > a {
+.links>a {
     color: #636b6f;
     padding: 0 25px;
     font-size: 13px;
@@ -71,6 +72,7 @@ html, body {
     height: 60px;
 }
 
+
 /*
 .aliment-image-icon {
     width: 150px;
@@ -86,7 +88,9 @@ html, body {
     border: none;
 }
 
-.form-control-borderless:hover, .form-control-borderless:active, .form-control-borderless:focus {
+.form-control-borderless:hover,
+.form-control-borderless:active,
+.form-control-borderless:focus {
     border: none;
     outline: none;
     box-shadow: none;
