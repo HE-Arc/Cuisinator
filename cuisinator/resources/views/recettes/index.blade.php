@@ -60,6 +60,7 @@
             ev.preventDefault();
             ev.dataTransfer.dropEffect = "move";
         }
+
         function preventDrop(ev) {
             ev.preventDefault();
             return false;
