@@ -1,11 +1,10 @@
-<!-- Delete Task Modal Form HTML -->
 <div class="modal fade" id="deleteAlimentModal">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form id="frmDeleteTask">
+            <form id="frmDeleteAliment">
                 <div class="modal-header">
                     <h4 class="modal-title" id="delete-title" name="title">
-                        Delete Task
+                        Delete Aliment
                     </h4>
                     <button aria-hidden="true" class="close" data-dismiss="modal" type="button">
                         ×
@@ -17,7 +16,7 @@
                 </div>
                 <div class="modal-body">
                     <p>
-                        Are you sure you want to delete this task?
+                        Are you sure you want to delete this aliment?
                     </p>
                     <p class="text-warning">
                         <small>
@@ -26,10 +25,10 @@
                     </p>
                 </div>
                 <div class="modal-footer">
-                    <input id="task_id" name="task_id" type="hidden" value="0">
+                    <input id="alimentID" name="alimentID" type="hidden" value="0">
                         <input class="btn btn-default" data-dismiss="modal" type="button" value="Cancel">
                             <button class="btn btn-danger" id="btn-delete" type="button">
-                                Delete Task
+                                Delete aliment
                             </button>
                         </input>
                     </input>
@@ -41,13 +40,16 @@
 
 
 <script>
-
-    var alimentID = 0;
     $('#deleteAlimentModal').on('show.bs.modal', function (event) {
-      var button = $(event.relatedTarget) // Button that triggered the modal
-      var modal = $(this)
-      alimentID = button.data('id');
-    })
+        var button = $(event.relatedTarget) // Button that triggered the modal
+        var modal = $(this)
+        modal.find("#alimentID").val(button.data('id'));
+
+    });
+    $('#deleteAlimentModal').on('hidden.bs.modal', function () {
+        $('#delete-aliment-errors').html("");
+        $('#delete-error-bag').hide();
+    });
 
 
     $("#btn-delete").click(function() {
@@ -58,22 +60,20 @@
         });
         $.ajax({
             type: 'DELETE',
-            url: '{{ route('aliments.index')}}/' + alimentID,
+            url: '{{ route('aliments.index')}}/' + $("#alimentID").val(),
             data: {
                 "_token": "{{ csrf_token() }}",
             },
             dataType: 'json',
             success: function(data) {
-                $('#frmDeleteTask').trigger("reset");
-                $("#frmDeleteTask .close").click();
+                $('#frmDeleteAliment').trigger("reset");
+                $("#frmDeleteAliment .close").click();
                 window.location.reload();
             },
             error: function(data) {
-              var errors = $.parseJSON(data.responseText);
-              $('#delete-aliment-errors').html('');
-                $.each(errors.messages, function(key, value) {
-                    $('#delete-aliment-errors').append('<li>' + value + '</li>');
-                });
+                let errors = $.parseJSON(data.responseText);
+                
+                $('#delete-aliment-errors').append('<li>' + errors.message + '</li>');
                 $("#delete-error-bag").show(); 
             }
         });

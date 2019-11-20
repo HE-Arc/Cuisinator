@@ -27,7 +27,7 @@ class AlimentsController extends Controller
      */
     public function create()
     {
-        //
+
     }
 
     /**
@@ -38,7 +38,24 @@ class AlimentsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->input(), array(
+            'nom' => 'required|max:50',
+            'id_createur' => 'required|max:50',
+        ));
+
+        if ($validator->fails()) {
+            return response()->json([
+                'error'    => true,
+                'messages' => $validator->errors(),
+            ], 422);
+        }
+        
+        Aliment::firstOrCreate(['nom' => $request['nom']],$request->input());
+
+        return response()->json([
+            'error' => false,
+            'aliment'  => "kingfood"
+        ], 200);
     }
 
     /**
@@ -105,7 +122,7 @@ class AlimentsController extends Controller
         if($aliment->recettes()->count() > 0){
             return response()->json([
                 'error' => true,
-                'message' => ["Aliment is still part of a recette"],
+                'message' => "Aliment is still part of a recette",
             ], 422);
         }
         
