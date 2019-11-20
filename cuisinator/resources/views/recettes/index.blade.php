@@ -39,7 +39,9 @@
             <div class="col-md-3 container spaced-inside fill-parent">
                 <div class="container fill-parent">
                     <div class="row p-3 border bg-light rounded-lg fill-parent" id="liste-aliments-possedes" ondrop="drop(event)" ondragover="allowDrop(event)">
+                        <div class="row mb-auto">
 
+                        </div>
                     </div>
                 </div>
             </div>
@@ -74,8 +76,9 @@
             ev.preventDefault();
             // Get the id of the target and add the moved element to the target's DOM
             var data = ev.dataTransfer.getData("text/plain");
-            console.log(data);
-            ev.target.appendChild(document.getElementById(data));
+            // console.log(data);
+            // console.log(ev.target.childNodes[1]);
+            ev.target.childNodes[1].appendChild(document.getElementById(data));
         }
     </script>
 @endsection
