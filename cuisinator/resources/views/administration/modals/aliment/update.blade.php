@@ -1,18 +1,18 @@
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="updateAlimentModal" tabindex="-1" role="dialog" aria-labelledby="updateAlimentModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modifier un aliment</h5>
+        <h5 class="modal-title" id="updateAlimentModalLabel">Modifier un aliment</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
         <div class="alert alert-danger collapse" id="edit-error-bag" role="alert">
-            <ul id="edit-task-errors">
+            <ul id="edit-aliment-errors">
             </ul>
         </div>
-        <form id="frmEditTask"> 
+        <form id="frmEditAliment"> 
           <input type="hidden" id="aliment-id" value="" >
           <div class="form-group">
             <label for="aliment-nom" class="col-form-label">Nom :</label>
@@ -33,7 +33,7 @@
 </div>
 
 <script>
-    $('#exampleModal').on('show.bs.modal', function (event) {
+    $('#updateAlimentModal').on('show.bs.modal', function (event) {
       var button = $(event.relatedTarget) // Button that triggered the modal
       let alimentNom = button.data('nom') // Extract info from data-* attributes
       let alimentPhoto = button.data('nomPhoto')
@@ -47,7 +47,12 @@
       modal.find('#aliment-id').val(alimentID)
     })
 
-    
+    $('#updateAlimentModal').on('hidden.bs.modal', function () {
+        $('#edit-aliment-errors').html("");
+        $('#edit-error-bag').hide();
+    });
+
+
     $("#btn-save").click(function() {
         $.ajaxSetup({
             headers: {
@@ -65,15 +70,15 @@
             },
             dataType: 'json',
             success: function(data) {
-                $('#frmEditTask').trigger("reset");
-                $("#frmEditTask .close").click();
+                $('#frmEditAliment').trigger("reset");
+                $("#frmEditAliment .close").click();
                 window.location.reload();
             },
             error: function(data) {
               var errors = $.parseJSON(data.responseText);
-              $('#edit-task-errors').html('');
+              $('#edit-aliment-errors').html('');
                 $.each(errors.messages, function(key, value) {
-                    $('#edit-task-errors').append('<li>' + value + '</li>');
+                    $('#edit-aliment-errors').append('<li>' + value + '</li>');
                 });
                 $("#edit-error-bag").show(); 
             }

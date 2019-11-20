@@ -24,7 +24,7 @@
                     <td>{{$aliment->nom_photo}}</td>
                     <td>
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#deleteAlimentModal" data-id="{{$aliment->id}}">Supprimer</button>
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-id="{{$aliment->id}}" data-nom="{{$aliment->nom}}" data-nomPhoto="{{$aliment->nom_photo}}">Modifier</button>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#updateAlimentModal" data-id="{{$aliment->id}}" data-nom="{{$aliment->nom}}" data-nomPhoto="{{$aliment->nom_photo}}">Modifier</button>
                     </td>
               
                 </tr>

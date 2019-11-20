@@ -105,7 +105,7 @@ class AlimentsController extends Controller
         if($aliment->recettes()->count() > 0){
             return response()->json([
                 'error' => true,
-                'message' => ["Aliment is still part of a recette"],
+                'message' => "Aliment is still part of a recette",
             ], 422);
         }
         
