@@ -38,16 +38,23 @@ class AlimentsController extends Controller
      */
     public function store(Request $request)
     {
-        $validator = Validator::make($request->input(), array(
+
+        $validation = Validator::make($request->all(), [
             'nom' => 'required|max:50',
             'id_createur' => 'required|max:50',
-        ));
+            'photo' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048'
+        ]);
 
-        if ($validator->fails()) {
+        if ($validation->fails()) {
             return response()->json([
                 'error'    => true,
-                'messages' => $validator->errors(),
+                'messages' => $validation->errors(),
             ], 422);
+        }
+
+        if ($files = $request->file('photo')) {
+            $image = $request->photo->store('photos-aliments');
+            $request['nom_photo'] = explode('/',$image)[1];
         }
         
         Aliment::firstOrCreate(['nom' => $request['nom']],$request->input());
@@ -56,6 +63,7 @@ class AlimentsController extends Controller
             'error' => false,
             'aliment'  => "kingfood"
         ], 200);
+ 
     }
 
     /**
@@ -91,7 +99,6 @@ class AlimentsController extends Controller
     {
         $validator = Validator::make($request->input(), array(
             'nom' => 'required|max:50',
-            'photo' => 'required|max:50',
         ));
 
         if ($validator->fails()) {
@@ -101,7 +108,7 @@ class AlimentsController extends Controller
             ], 422);
         }
         $aliment->nom =  $request->input('nom');
-        $aliment->nom_photo = $request->input('photo');
+        //$aliment->nom_photo = $request->input('photo');
 
         $aliment->save();
 

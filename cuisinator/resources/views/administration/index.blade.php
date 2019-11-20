@@ -23,7 +23,7 @@
                     <td>{{$aliment->nom}}</td>
                     <td>{{$aliment->username}}</td>
                     
-                    <td><img src="{{{ URL::asset('photos-aliments/' . ((!is_null($aliment->nom_photo))? $aliment->nom_photo : "default.jpg" )) }}}" alt="{{$aliment->nom_photo}}"></td>
+                    <td><img src="{{{ URL::asset('photos-aliments/' . ((!is_null($aliment->nom_photo))? $aliment->nom_photo : "default.jpg" )) }}}" alt="{{$aliment->nom_photo}}" class="img-thumbnail"></td>
                     <td>
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#deleteAlimentModal" data-id="{{$aliment->id}}">Supprimer</button>
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#updateAlimentModal" data-id="{{$aliment->id}}" data-nom="{{$aliment->nom}}" data-nomPhoto="{{$aliment->nom_photo}}">Modifier</button>
