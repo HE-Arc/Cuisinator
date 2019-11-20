@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Aliment;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class AlimentsController extends Controller
 {
@@ -71,7 +72,26 @@ class AlimentsController extends Controller
      */
     public function update(Request $request, Aliment $aliment)
     {
-        //
+        $validator = Validator::make($request->input(), array(
+            'nom' => 'required|max:50',
+            'photo' => 'required|max:50',
+        ));
+
+        if ($validator->fails()) {
+            return response()->json([
+                'error'    => true,
+                'messages' => $validator->errors(),
+            ], 422);
+        }
+        $aliment->nom =  $request->input('nom');
+        $aliment->nom_photo = $request->input('photo');
+
+        $aliment->save();
+
+        return response()->json([
+            'error' => false,
+            'aliment'  => $aliment,
+        ], 200);
     }
 
     /**
@@ -82,6 +102,11 @@ class AlimentsController extends Controller
      */
     public function destroy(Aliment $aliment)
     {
-        //
+        $aliment = Aliment::destroy($aliment->id);
+
+        return response()->json([
+            'error' => false,
+            'aliment'  => $aliment,
+        ], 200);
     }
 }
