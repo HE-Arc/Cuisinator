@@ -13,14 +13,14 @@
             </ul>
         </div>
         <form id="frmEditAliment"> 
-          <input type="hidden" id="aliment-id" value="" >
+          <input type="hidden" id="edit-aliment-id" value="" >
           <div class="form-group">
             <label for="aliment-nom" class="col-form-label">Nom :</label>
-            <input type="text" class="form-control" id="aliment-nom">
+            <input type="text" class="form-control" id="edit-aliment-nom">
           </div>
           <div class="form-group">
             <label for="aliment-image" class="col-form-label">Image :</label>
-            <input type="text" class="form-control" id="aliment-photo">
+            <input type="text" class="form-control" id="edit-aliment-photo">
           </div>
         </form>
       </div>
@@ -38,13 +38,14 @@
       let alimentNom = button.data('nom') // Extract info from data-* attributes
       let alimentPhoto = button.data('nomPhoto')
       let alimentID = button.data('id')
+      console.log(alimentID);
 
       // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
       // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
       var modal = $(this)
-      modal.find('#aliment-nom').val(alimentNom)
-      modal.find('#aliment-photo').val(alimentPhoto)
-      modal.find('#aliment-id').val(alimentID)
+      modal.find('#edit-aliment-nom').val(alimentNom)
+      modal.find('#edit-aliment-photo').val(alimentPhoto)
+      modal.find('#edit-aliment-id').val(alimentID)
     })
 
     $('#updateAlimentModal').on('hidden.bs.modal', function () {
@@ -61,12 +62,11 @@
         });
         $.ajax({
             type: 'PUT',
-            
-            url: '{{ route('aliments.index')}}/' + $("#aliment-id").val(),
+            url: '{{ route('aliments.index')}}/' + $("#edit-aliment-id").val(),
             data: {
                 "_token": "{{ csrf_token() }}",
-                nom: $("#aliment-nom").val(),
-                photo: $("#aliment-photo").val(),
+                nom: $("#edit-aliment-nom").val(),
+                photo: $("#edit-aliment-photo").val(),
             },
             dataType: 'json',
             success: function(data) {
