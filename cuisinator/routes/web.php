@@ -13,7 +13,7 @@
 
 Route::get('/', 'HomeController@index');
 
-Auth::routes(['register' => false]);
+Auth::routes(['register' => true]);
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::resource('/aliments', 'AlimentsController');

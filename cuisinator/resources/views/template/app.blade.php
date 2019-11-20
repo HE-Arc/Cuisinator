@@ -28,7 +28,7 @@
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="/home">Cuisinator</a>
+  <a class="navbar-brand" href="{{route('home')}}">Cuisinator</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -36,13 +36,13 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item">
-        <a class="nav-link" href="/home">Home</a>
+        <a class="nav-link" href="{{route('home')}}">Home</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="./recettes">Recettes</a>
+        <a class="nav-link" href="{{url('recettes')}}">Recettes</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="./aliments" tabindex="-1" aria-disabled="true">Aliments</a>
+        <a class="nav-link" href="{{url('aliments')}}" tabindex="-1" aria-disabled="true">Aliments</a>
       </li>
     </ul>
     @if (Route::has('login'))

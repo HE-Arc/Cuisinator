@@ -12,7 +12,7 @@
                     </button>
                 </div>
                 <div class="alert alert-danger collapse" id="delete-error-bag" role="alert">
-                <ul id="delete-task-errors">
+                <ul id="delete-aliment-errors">
                 </ul>
                 </div>
                 <div class="modal-body">
@@ -42,11 +42,11 @@
 
 <script>
 
+    var alimentID = 0;
     $('#deleteAlimentModal').on('show.bs.modal', function (event) {
       var button = $(event.relatedTarget) // Button that triggered the modal
-
-      let alimentID = button.data('id');
-      console.log("asd" + alimentID)
+      var modal = $(this)
+      alimentID = button.data('id');
     })
 
 
@@ -58,26 +58,23 @@
         });
         $.ajax({
             type: 'DELETE',
-            
-            url: '{{ route('aliments.index')}}/' + $("#aliment-id").val(),
+            url: '{{ route('aliments.index')}}/' + alimentID,
             data: {
                 "_token": "{{ csrf_token() }}",
-                nom: $("#aliment-nom").val(),
-                photo: $("#aliment-photo").val(),
             },
             dataType: 'json',
             success: function(data) {
-                $('#frmEditTask').trigger("reset");
-                $("#frmEditTask .close").click();
-                window.location.reload();
+                $('#frmDeleteTask').trigger("reset");
+                $("#frmDeleteTask .close").click();
+                //window.location.reload();
             },
             error: function(data) {
               var errors = $.parseJSON(data.responseText);
-              $('#edit-task-errors').html('');
+              $('#delete-aliment-errors').html('');
                 $.each(errors.messages, function(key, value) {
-                    $('#edit-task-errors').append('<li>' + value + '</li>');
+                    $('#delete-aliment-errors').append('<li>' + value + '</li>');
                 });
-                $("#edit-error-bag").show(); 
+                $("#delete-error-bag").show(); 
             }
         });
     });
