@@ -31,14 +31,14 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-3 container">
+            <div class="col-md-3 container spaced-inside">
                 <div class="container">
                     <div class="row p-3 border bg-light rounded-lg" id="liste-aliments-possedes">
 
                     </div>
                 </div>
             </div>
-            <div class="col-md-6 container">
+            <div class="col-md-6 container spaced-inside">
                 <div class="container">
                     <div class="row p-3 border bg-light rounded-lg" id="liste-recettes">
 
