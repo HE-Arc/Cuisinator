@@ -13,4 +13,9 @@ class Unite extends Model
      * @var string
      */
     protected $table = 'unites';
+
+    public function quantites()
+    {
+        $this->hasMany('App\Quantite', 'id_unite');
+    }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Aliment;
 use Illuminate\Http\Request;
 
 class AdministrationController extends Controller
@@ -13,6 +14,7 @@ class AdministrationController extends Controller
     }
     public function index()
     {
-        return view("administration.index");
+        $aliments = Aliment::all();
+        return view("administration.index", ['aliments' => $aliments]);
     }
 }
