@@ -3,18 +3,6 @@
 
 
 @section('content')
-<nav class="navbar navbar-expand-lg navbar-light bg-light d-flex flex-row-reverse">
-    <div class="d-flex flex-row-reverse">
-    <a class="dropdown-item" href="{{ route('logout') }}"
-            onclick="event.preventDefault();
-                    document.getElementById('logout-form').submit();">
-            {{ __('Logout') }}
-        </a>
-        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-            @csrf
-        </form>
-    </div>
-</nav>
     <h1>Administration</h1>
     <h2>Aliments</h2>
     <div class="container">
