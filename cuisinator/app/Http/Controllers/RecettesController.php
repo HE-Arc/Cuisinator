@@ -88,4 +88,9 @@ class RecettesController extends Controller
     {
         //
     }
+
+    public function getRecetteFromAliments()
+    {
+        
+    }
 }

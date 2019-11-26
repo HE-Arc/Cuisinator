@@ -80,5 +80,34 @@
             // console.log(ev.target.childNodes[1]);
             ev.target.childNodes[1].appendChild(document.getElementById(data));
         }
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.ajax({
+            type: 'PUT',
+            url: '{{ route('aliments.index')}}/' + $("#edit-aliment-id").val(),
+            data: {
+                "_token": "{{ csrf_token() }}",
+                nom: $("#edit-aliment-nom").val(),
+                photo: $("#edit-aliment-photo").val(),
+            },
+            dataType: 'json',
+            success: function(data) {
+                $('#frmEditAliment').trigger("reset");
+                $("#frmEditAliment .close").click();
+                window.location.reload();
+            },
+            error: function(data) {
+                var errors = $.parseJSON(data.responseText);
+                $('#edit-aliment-errors').html('');
+                $.each(errors.messages, function(key, value) {
+                    $('#edit-aliment-errors').append('<li>' + value + '</li>');
+                });
+                $("#edit-error-bag").show();
+            }
+        });
     </script>
 @endsection
