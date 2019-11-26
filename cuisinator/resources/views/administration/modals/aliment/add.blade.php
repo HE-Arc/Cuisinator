@@ -32,11 +32,11 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <input class="btn btn-default" data-dismiss="modal" type="button" value="Cancel">
-                        <button class="btn btn-info" id="btn-add" type="submit" value="add">
-                            Add New aliment
-                        </button>
-                    </input>
+                    <input class="btn btn-default" id="btn-add-cancel" data-dismiss="modal" type="button" value="Cancel">                    </input>
+                    <button class="btn btn-info" id="btn-add" type="submit" value="add">
+                        Add New aliment
+                    </button>
+
                 </div>
             </form>
         </div>
@@ -49,7 +49,6 @@ $('#frmAddAliment').on('hidden.bs.modal', function () {
     $('#add-error-bag').hide();
 });
 $("#frmAddAliment").on("submit", function(e){
-//$("#btn-add").click(function() {
     e.preventDefault();
     $.ajaxSetup({
         headers: {
@@ -67,19 +66,13 @@ $("#frmAddAliment").on("submit", function(e){
     $.ajax({
         type: 'POST',
         url: '{{ route('aliments.store')}}',
-        /*data: {
-            "_token": "{{ csrf_token() }}",
-            nom: $("#add-aliment-nom").val(),
-            photo: $("#add-aliment-photo").val(),
-            id_createur: {{ Auth::user()->id }},
-        },
-        dataType: 'json',*/
         data : new FormData(this),
         processData: false,
         contentType: false,
         success: function(data) {
             $('#frmAddAliment').trigger("reset");
-            $("#frmAddAliment .close").click();
+            $("#btn-add-cancel").click();
+            updatePage();
         },
         error: function(data) {
             let errors = $.parseJSON(data.responseText);

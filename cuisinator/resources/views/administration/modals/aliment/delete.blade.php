@@ -26,11 +26,11 @@
                 </div>
                 <div class="modal-footer">
                     <input id="alimentID" name="alimentID" type="hidden" value="0">
-                        <input class="btn btn-default" data-dismiss="modal" type="button" value="Cancel">
-                            <button class="btn btn-danger" id="btn-delete" type="button">
+                        <input class="btn btn-default " data-dismiss="modal" type="button" id="btn-delete-cancel" value="Cancel"></input>
+                        <button class="btn btn-danger" id="btn-delete" type="button">
                                 Delete aliment
-                            </button>
-                        </input>
+                        </button>
+                        
                     </input>
                 </div>
             </form>
@@ -67,12 +67,12 @@
             dataType: 'json',
             success: function(data) {
                 $('#frmDeleteAliment').trigger("reset");
-                $("#frmDeleteAliment .close").click();
-                window.location.reload();
+                $("#btn-delete-cancel").click();
+                updatePage();
             },
             error: function(data) {
                 let errors = $.parseJSON(data.responseText);
-                
+
                 $('#delete-aliment-errors').append('<li>' + errors.message + '</li>');
                 $("#delete-error-bag").show(); 
             }

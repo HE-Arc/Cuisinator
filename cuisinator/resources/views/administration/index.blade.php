@@ -61,7 +61,6 @@
                             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#deleteAlimentModal" data-id="` + data[i]['id'] + `">Supprimer</button>
                             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#updateAlimentModal" data-id="` + data[i]['id'] + `" data-nom="` + data[i]['nom'] + `" data-nomPhoto="` + data[i]['nom_photo'] + `">Modifier</button>
                             </td>`);
-
                         tbody.append("</tr>");
                     }
                 },

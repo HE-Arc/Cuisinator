@@ -27,8 +27,8 @@
             <input type="file" class="form-control" name="photo" id="edit-aliment-photo">
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary" id="btn-save">Save</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal" id="btn-edit-cancel">Close</button>
+            <button type="button" class="btn btn-primary" id="btn-edit-save">Save</button>
         </div>
         </form>
       </div>
@@ -43,13 +43,11 @@
       let alimentNom = button.data('nom') // Extract info from data-* attributes
       let alimentPhoto = button.data('nomPhoto')
       let alimentID = button.data('id')
-      console.log(alimentID);
 
       // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
       // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
       var modal = $(this)
       modal.find('#edit-aliment-nom').val(alimentNom)
-      //modal.find('#edit-aliment-photo').val(alimentPhoto)
       modal.find('#edit-aliment-id').val(alimentID)
     })
 
@@ -57,10 +55,7 @@
         $('#edit-aliment-errors').html("");
         $('#edit-error-bag').hide();
     });
-
-    /*$("#frmEditAliment").on("submit", function(e){
-      e.preventDefault();*/
-    $("#btn-save").click(function() {
+    $("#btn-edit-save").click(function() {
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -74,14 +69,11 @@
                 nom: $("#edit-aliment-nom").val(),
                 photo: $("#edit-aliment-photo").val(),
             },
-            dataType: 'json',/*
-            data : new FormData(this),
-            processData: false,
-            contentType: false,*/
+            dataType: 'json',
             success: function(data) {
                 $('#frmEditAliment').trigger("reset");
-                $("#frmEditAliment .close").click();
-                //window.location.reload();
+                $("#btn-edit-cancel").click();
+                updatePage();
             },
             error: function(data) {
               var errors = $.parseJSON(data.responseText);
