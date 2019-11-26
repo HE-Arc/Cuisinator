@@ -14,7 +14,7 @@
                             <div class="col-12 spaced-bottom">
                                 <form class="form-inline">
                                     <input class="form-control col" type="search" placeholder="Chercher un aliment" />
-                                    <button class="form-control btn btn-success justify-content-end" type="submit"><i class="fas fa-search"></i></button>
+                                    <!--<button class="form-control btn btn-success justify-content-end" type="submit"><i class="fas fa-search"></i></button>-->
                                 </form>
                             </div>
                         </div>
@@ -74,7 +74,7 @@
         function drop(ev) {
             ev.preventDefault();
             // Get the id of the target and add the moved element to the target's DOM
-            var data = ev.dataTransfer.getData("text/plain");
+            let data = ev.dataTransfer.getData("text/plain");
             // console.log(data);
             // console.log(ev.target.childNodes[1]);
             ev.target.childNodes[1].appendChild(document.getElementById(data));
@@ -93,7 +93,7 @@
                 ids.push(this.id);
             });
 
-            console.log(ids);
+            // console.log(ids);
 
             $.ajaxSetup({
                 headers: {
@@ -115,10 +115,10 @@
                     console.log(data);
 
                     for (let i = 0; i < data.length; ++i) {
-                        let figure = "<figure class=\"figure col-lg-4 col-md-12 col-sm-4 col-xs-6\" id=\"" + data[i].id + "\">";
+                        let figure = "<figure class=\"figure col-lg-4 col-md-12 col-sm-3 col-xs-6 \" id=\"" + data[i].id + "\">";
                         figure += "<div>";
                         figure += '<img src="' + {!! '"'.URL::asset('photos-recettes/').'"' !!} + "/" + data[i].nom_photo + '"'
-                                    + 'alt="Image de ' + data[i].nom + '" class="figure-img rounded aliment-image-icon" />';
+                                    + 'alt="Image de ' + data[i].nom + '" class="figure-img rounded recette-image-icon" />';
                         figure += "</div>";
                         figure += "<figcaption class=\"figure-caption\" >" + data[i].nom + "</figcaption>";
                         figure += "</figure>";

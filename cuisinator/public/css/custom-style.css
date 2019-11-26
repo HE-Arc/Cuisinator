@@ -72,6 +72,12 @@ body {
     height: 60px;
 }
 
+.recette-image-icon {
+    object-fit: cover;
+    width: 240px;
+    height: 240px;
+}
+
 
 /*
 .aliment-image-icon {
