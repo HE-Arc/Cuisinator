@@ -139,4 +139,16 @@ class AlimentsController extends Controller
             'message' => $aliment,
         ], 200);   
     }
+
+    /**
+     * 
+     *
+     * @param  \App\Aliment  $aliment
+     * @return \Illuminate\Http\Response
+     */
+    public function alimentsJSON(){
+        $alim = Aliment::allWithCreatorName();
+
+        return $alim->toJson();
+    }
 }

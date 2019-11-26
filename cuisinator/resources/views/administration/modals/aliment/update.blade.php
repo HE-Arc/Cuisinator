@@ -81,7 +81,7 @@
             success: function(data) {
                 $('#frmEditAliment').trigger("reset");
                 $("#frmEditAliment .close").click();
-                window.location.reload();
+                //window.location.reload();
             },
             error: function(data) {
               var errors = $.parseJSON(data.responseText);
