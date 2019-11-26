@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Aliment;
 use App\Recette;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class RecettesController extends Controller
 {
@@ -89,8 +90,22 @@ class RecettesController extends Controller
         //
     }
 
-    public function getRecetteFromAliments()
+    public function getRecetteFromAliments(Request $request)
     {
-        
+        $path = explode("/", $request->path());
+        $ids = '(' . end($path) . ')';
+
+//        var_dump($path);
+//        var_dump($ids);
+
+        $recipes = DB::table('recettes')
+                        ->join('quantites', 'recettes.id', '=', 'quantites.id_recette')
+                        ->where('quantites.id_aliment', 'IN', $ids)
+                        ->select('recettes.*')
+                        ->distinct()
+                        ->get();
+
+
+
     }
 }
