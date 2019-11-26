@@ -11,12 +11,16 @@
 |
 */
 
+use App\Http\Controllers\AlimentsController;
+
 Route::get('/', 'HomeController@index');
 
 Auth::routes(['register' => true]);
 
 Route::get('/home', 'HomeController@index')->name('home');
+
 Route::resource('aliments', 'AlimentsController');
+Route::get('alimentsJSON','AlimentsController@alimentsJSON')->name('alimentsJSON');
 Route::resource('recettes', 'RecettesController');
 Route::get('find/{query}', 'RecettesController@getRecetteFromAliments')->where('query','.+');
 

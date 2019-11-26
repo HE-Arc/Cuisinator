@@ -80,7 +80,6 @@ $("#frmAddAliment").on("submit", function(e){
         success: function(data) {
             $('#frmAddAliment').trigger("reset");
             $("#frmAddAliment .close").click();
-            //window.location.reload();
         },
         error: function(data) {
             let errors = $.parseJSON(data.responseText);

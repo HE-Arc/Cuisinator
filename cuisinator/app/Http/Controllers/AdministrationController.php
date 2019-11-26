@@ -14,9 +14,7 @@ class AdministrationController extends Controller
     }
     public function index()
     {
-        $aliments = Aliment::join('users', 'users.id', '=', 'aliments.id_createur')
-        ->select('users.name AS username','aliments.id','aliments.nom','aliments.nom_photo')
-        ->get();
+        $aliments = Aliment::allWithCreatorName();
 
         return view("administration.index", ['aliments' => $aliments]);
     }
