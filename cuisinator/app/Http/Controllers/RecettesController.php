@@ -93,19 +93,22 @@ class RecettesController extends Controller
     public function getRecetteFromAliments(Request $request)
     {
         $path = explode("/", $request->path());
-        $ids = '(' . end($path) . ')';
+        $ids = explode(",", end($path));
 
 //        var_dump($path);
 //        var_dump($ids);
 
+//        DB::enableQueryLog(); // Enable query log
+
         $recipes = DB::table('recettes')
                         ->join('quantites', 'recettes.id', '=', 'quantites.id_recette')
-                        ->where('quantites.id_aliment', 'IN', $ids)
-                        ->select('recettes.*')
+                        ->whereIn('quantites.id_aliment', $ids)
+                        ->select('recettes.id', 'recettes.nom', 'recettes.id_createur', 'recettes.nom_photo', 'recettes.description', 'recettes.steps')
                         ->distinct()
                         ->get();
 
+//        dd(DB::getQueryLog()); // Show results of log
 
-
+        return response()->json($recipes);
     }
 }

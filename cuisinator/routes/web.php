@@ -18,7 +18,7 @@ Auth::routes(['register' => true]);
 Route::get('/home', 'HomeController@index')->name('home');
 Route::resource('aliments', 'AlimentsController');
 Route::resource('recettes', 'RecettesController');
-Route::get('recettes/find/{query}', 'RecettesController@getRecetteFromAliments')->where('query','.+');
+Route::get('find/{query}', 'RecettesController@getRecetteFromAliments')->where('query','.+');
 
 Route::get('/administration', 'AdministrationController@index')->name('Administration');
 
