@@ -12,22 +12,27 @@
             <ul id="edit-aliment-errors">
             </ul>
         </div>
-        <form id="frmEditAliment"> 
+        <form id="frmEditAliment" enctype="multipart/form-data"> 
+        <input type="hidden" name="_method" value="PUT">
+        @csrf
+          
           <input type="hidden" id="edit-aliment-id" value="" >
+          
           <div class="form-group">
             <label for="aliment-nom" class="col-form-label">Nom :</label>
-            <input type="text" class="form-control" id="edit-aliment-nom">
+            <input type="text" class="form-control" name="nom" id="edit-aliment-nom">
           </div>
           <div class="form-group">
             <label for="aliment-image" class="col-form-label">Image :</label>
-            <input type="text" class="form-control" id="edit-aliment-photo">
+            <input type="file" class="form-control" name="photo" id="edit-aliment-photo">
           </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" id="btn-save">Save</button>
+        </div>
         </form>
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" id="btn-save">Save</button>
-      </div>
+
     </div>
   </div>
 </div>
@@ -44,7 +49,7 @@
       // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
       var modal = $(this)
       modal.find('#edit-aliment-nom').val(alimentNom)
-      modal.find('#edit-aliment-photo').val(alimentPhoto)
+      //modal.find('#edit-aliment-photo').val(alimentPhoto)
       modal.find('#edit-aliment-id').val(alimentID)
     })
 
@@ -53,7 +58,8 @@
         $('#edit-error-bag').hide();
     });
 
-
+    /*$("#frmEditAliment").on("submit", function(e){
+      e.preventDefault();*/
     $("#btn-save").click(function() {
         $.ajaxSetup({
             headers: {
@@ -68,7 +74,10 @@
                 nom: $("#edit-aliment-nom").val(),
                 photo: $("#edit-aliment-photo").val(),
             },
-            dataType: 'json',
+            dataType: 'json',/*
+            data : new FormData(this),
+            processData: false,
+            contentType: false,*/
             success: function(data) {
                 $('#frmEditAliment').trigger("reset");
                 $("#frmEditAliment .close").click();
