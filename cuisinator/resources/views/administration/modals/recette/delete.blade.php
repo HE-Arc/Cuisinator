@@ -1,22 +1,22 @@
-<div class="modal fade" id="deleteAlimentModal">
+<div class="modal fade" id="deleteRecetteModal">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form id="frmDeleteAliment">
+            <form id="frmDeleteRecette">
                 <div class="modal-header">
                     <h4 class="modal-title" id="delete-title" name="title">
-                        Delete Aliment
+                        Delete Recette
                     </h4>
                     <button aria-hidden="true" class="close" data-dismiss="modal" type="button">
                         ×
                     </button>
                 </div>
                 <div class="alert alert-danger collapse" id="delete-error-bag" role="alert">
-                <ul id="delete-aliment-errors">
+                <ul id="delete-recette-errors">
                 </ul>
                 </div>
                 <div class="modal-body">
                     <p>
-                        Are you sure you want to delete this aliment?
+                        Are you sure you want to delete this recette?
                     </p>
                     <p class="text-warning">
                         <small>
@@ -25,12 +25,11 @@
                     </p>
                 </div>
                 <div class="modal-footer">
-                    <input id="alimentID" name="alimentID" type="hidden" value="0">
-                        <input class="btn btn-default " data-dismiss="modal" type="button" id="btn-delete-cancel" value="Cancel"></input>
+                    <input id="recetteID" name="recetteID" type="hidden" value="0">
+                        <input class="btn btn-default " data-dismiss="modal" type="button" id="btn-delete-cancel" value="Cancel">
                         <button class="btn btn-danger" id="btn-delete" type="button">
-                                Delete aliment
-                        </button>
-                        
+                                Delete recette
+                        </button>                
                     </input>
                 </div>
             </form>
@@ -40,14 +39,14 @@
 
 
 <script>
-    $('#deleteAlimentModal').on('show.bs.modal', function (event) {
+    $('#deleteRecetteModal').on('show.bs.modal', function (event) {
         var button = $(event.relatedTarget) // Button that triggered the modal
         var modal = $(this)
-        modal.find("#alimentID").val(button.data('id'));
+        modal.find("#recetteID").val(button.data('id'));
 
     });
-    $('#deleteAlimentModal').on('hidden.bs.modal', function () {
-        $('#delete-aliment-errors').html("");
+    $('#deleteRecetteModal').on('hidden.bs.modal', function () {
+        $('#delete-recette-errors').html("");
         $('#delete-error-bag').hide();
     });
 
@@ -60,20 +59,20 @@
         });
         $.ajax({
             type: 'DELETE',
-            url: '{{ route('aliments.index')}}/' + $("#alimentID").val(),
+            url: '{{ route('recettes.index')}}/' + $("#recetteID").val(),
             data: {
                 "_token": "{{ csrf_token() }}",
             },
             dataType: 'json',
             success: function(data) {
-                $('#frmDeleteAliment').trigger("reset");
+                $('#frmDeleteRecette').trigger("reset");
                 $("#btn-delete-cancel").click();
                 updatePage();
             },
             error: function(data) {
                 let errors = $.parseJSON(data.responseText);
 
-                $('#delete-aliment-errors').append('<li>' + errors.message + '</li>');
+                $('#delete-recette-errors').append('<li>' + errors.message + '</li>');
                 $("#delete-error-bag").show(); 
             }
         });

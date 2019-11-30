@@ -73,6 +73,7 @@
                         </button>
                     </div>
                 </form>
+            </div>
         </div>
     </div>
 </div>
@@ -93,9 +94,15 @@ $("#btn-ingredient").on("click", function(){
 
     }
 );
-$('#frmAddRecette').on('hidden.bs.modal', function () {
+$('#addRecetteModal').on('hidden.bs.modal', function () {
     $('#add-recette-errors').html("");
     $('#add-error-bag').hide();
+    $('#frmAddRecette').trigger("reset");
+
+    for(let i = nbIngredientForm; i > 0; i--){
+        $("#ingredient-form" + i).remove();
+    }
+    nbIngredientForm = 0;
 });
 $("#frmAddRecette").on("submit", function(e){
     e.preventDefault();
