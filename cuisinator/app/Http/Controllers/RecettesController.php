@@ -6,6 +6,7 @@ use App\Aliment;
 use App\Recette;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 
 class RecettesController extends Controller
 {
@@ -39,7 +40,36 @@ class RecettesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validation = Validator::make($request->all(), [
+            'nom' => 'required|max:50',
+            'id_createur' => 'required|max:50',
+            'photo' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'description' => 'required|max:400',
+            'steps' => 'required|max:400',
+            "recette.*.aliment"=> 'required|max:50',
+            "recette.*.quantite"=> 'required|max:50',
+            "recette.*.unite"=> 'required|max:50',
+        ]);
+
+        if ($validation->fails()) {
+            return response()->json([
+                'error'    => true,
+                'messages' => $validation->errors(),
+            ], 422);
+        }
+
+        if ($files = $request->file('photo')) {
+            $image = $request->photo->store('photos-recettes');
+            $request['nom_photo'] = explode('/',$image)[1];
+        }
+       
+        
+        return Recette::insertRecette($request);
+
+        return response()->json([
+            'error' => false,
+            'aliment'  => "kingfood"
+        ], 200);
     }
 
     /**

@@ -1,24 +1,23 @@
 <div class="modal fade" id="addRecetteModal">
     <div class="modal-dialog">
         <div class="modal-content">
-            
-                <div class="modal-header">
-                    <h4 class="modal-title">
-                        Ajouter une nouvelle recette
-                    </h4>
-                    <button aria-hidden="true" class="close" data-dismiss="modal" type="button">
-                        ×
-                    </button>
+            <div class="modal-header">
+                <h4 class="modal-title">
+                    Ajouter une nouvelle recette
+                </h4>
+                <button aria-hidden="true" class="close" data-dismiss="modal" type="button">
+                    ×
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="alert alert-danger collapse" id="add-error-bag">
+                    <ul id="add-recette-errors">
+                    </ul>
                 </div>
-                <div class="modal-body">
-                    <div class="alert alert-danger collapse" id="add-error-bag">
-                        <ul id="add-recette-errors">
-                        </ul>
-                    </div>
                 <form id="frmAddRecette" enctype="multipart/form-data">
                     <div class="form-group">
                         <input type="hidden" id="add-recette-id" name="id_createur" value="{{ Auth::user()->id }}" >
-                        
+                            
                         @csrf
 
                     </div>
@@ -36,20 +35,20 @@
                     </div>
                     <div class="form-group" id="ingredient-container">
                         <label for="recette-ingredient" class="col-form-label">Ingrédients :</label>
-                        <div class="row" id="ingredient-form1">
-                            <div class="col">
-                                <select class="custom-select mr-sm-2" name="nom-aliment1">
-                                    <option selected>Choisir ...</option>
+                        <div class="row" id="ingredient-form0">
+                             <div class="col">
+                                <select class="custom-select mr-sm-2" name="recette[0][aliment]">
+                                    <option value="" selected>Choisir ...</option>
                                     @foreach($aliments as $aliment)
                                     <option value="{{$aliment->id}}">{{$aliment->nom}}</option>
                                     @endforeach
                                 </select>
                             </div>
                             <div class="col">
-                                <input type="number" class="form-control" name="quantite-aliment1">
+                                <input type="number" class="form-control" name="recette[0][quantite]">
                             </div>
                             <div class="col">
-                                <select class="custom-select mr-sm-2" name="unite-aliment1">
+                                <select class="custom-select mr-sm-2" name="recette[0][unite]">
                                     <option selected>Choisir ...</option>
                                     @foreach($unites as $unite)
                                     <option value="{{$unite->id}}">{{$unite->nom}}</option>
@@ -59,37 +58,39 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <button type="button" class="btn btn-secondary" id="btn-ingredient">
-                            <span class="glyphicon glyphicon-plus"></span>
+                        <button type="button" class="btn btn-info" id="btn-ingredient">
+                            Ajouter un aliment
                         </button>
                     </div>
                     <div class="form-group">
                         <label for="recette-image" class="col-form-label">Image :</label>
                         <input type="file" class="form-control" name="photo" id="add-recette-photo">
                     </div>
-                </div>
-                <div class="modal-footer">
-                    <input class="btn btn-default" id="btn-add-cancel" data-dismiss="modal" type="button" value="Cancel"></input>
-                    <button class="btn btn-info" id="btn-add" type="submit" value="add">
-                        Ajouter
-                    </button>
-
-                </div>
-            </form>
+                    <div class="modal-footer">
+                        <input class="btn btn-default" id="btn-add-cancel" data-dismiss="modal" type="button" value="Cancel"></input>
+                        <button class="btn btn-info" id="btn-add" type="submit" value="add">
+                            Ajouter
+                        </button>
+                    </div>
+                </form>
         </div>
     </div>
 </div>
 
 <script>
-
-var nbIngredientForm = 1;
+var nbIngredientForm = 0;
 $("#btn-ingredient").on("click", function(){
     
     let htmlElement = $("#ingredient-form" + nbIngredientForm).clone()
     nbIngredientForm++;
-    console.log( htmlElement);
+    $("#ingredient-container").append('<div class="row" id="ingredient-form' + nbIngredientForm + '"></div>');
+    $("#ingredient-form" + nbIngredientForm).append(htmlElement[0].children);
 
-    //.appendTo("#ingredient-container");
+    htmlElement = $("#ingredient-form" + nbIngredientForm)
+    $(htmlElement[0].children[0].children[0]).attr("name","recette[" + nbIngredientForm + "][aliment]");
+    $(htmlElement[0].children[1].children[0]).attr("name","recette[" + nbIngredientForm + "][quantite]");
+    $(htmlElement[0].children[2].children[0]).attr("name","recette[" + nbIngredientForm + "][unite]");
+
     }
 );
 $('#frmAddRecette').on('hidden.bs.modal', function () {
@@ -103,14 +104,6 @@ $("#frmAddRecette").on("submit", function(e){
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
     });
-
-    var fd = new FormData();
-    var files = $('#add-recette-photo')[0].files[0];
-    fd.append('_token',"{{ csrf_token() }}");
-    fd.append('nom', $("#add-recette-nom").val());
-    fd.append('photo',files);
-    fd.append('id_createur',{{ Auth::user()->id }});
-
     $.ajax({
         type: 'POST',
         url: '{{ route('recettes.store')}}',
