@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Aliment;
+use App\Quantite;
+use App\Recette;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -150,5 +153,16 @@ class AlimentsController extends Controller
         $alim = Aliment::allWithCreatorName();
 
         return $alim->toJson();
+    }
+
+    /**
+     * 
+     *
+     * @param  \App\Aliment  $aliment
+     * @return \Illuminate\Http\Response
+     */
+    public function test(){
+        $recettes = Recette::getAllAliments();
+        return $recettes->toJson();
     }
 }

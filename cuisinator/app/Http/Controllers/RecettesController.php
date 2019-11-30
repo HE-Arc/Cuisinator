@@ -111,4 +111,16 @@ class RecettesController extends Controller
 
         return response()->json($recipes);
     }
+
+    /**
+     * 
+     *
+     * @param  \App\Aliment  $aliment
+     * @return \Illuminate\Http\Response
+     */
+    public function recetteJSON(){
+        $recettes = Recette::allWithCreatorName();
+
+        return $recettes->toJson();
+    }
 }

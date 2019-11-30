@@ -14,4 +14,10 @@ class Quantite extends Pivot
         return $this->belongsTo('App\Unite', 'id_unite');
     }
 
+    
+
+    public static function recetteWithCreatorAndIngredients()
+    {
+        return Quantite::with('Recette')->get();
+    }
 }
