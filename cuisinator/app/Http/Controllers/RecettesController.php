@@ -63,8 +63,8 @@ class RecettesController extends Controller
             $image = $request->photo->store('photos-recettes');
             $request['nom_photo'] = explode('/',$image)[1];
         }
-       
-        
+
+
         return Recette::insertRecette($request);
 
         return response()->json([
@@ -125,40 +125,33 @@ class RecettesController extends Controller
         return response()->json([
             'error' => false,
             'message' => $recette,
-        ], 200); 
+        ], 200);
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function getRecetteFromAliments(Request $request)
     {
         $path = explode("/", $request->path());
         $ids = explode(",", end($path));
 
-//        var_dump($path);
-//        var_dump($ids);
-
-//        DB::enableQueryLog(); // Enable query log
-
-        $recipes = DB::table('recettes')
-                        ->join('quantites', 'recettes.id', '=', 'quantites.id_recette')
-                        ->whereIn('quantites.id_aliment', $ids)
-                        ->select('recettes.id', 'recettes.nom', 'recettes.id_createur', 'recettes.nom_photo', 'recettes.description', 'recettes.steps')
-                        ->distinct()
-                        ->get();
-
-//        dd(DB::getQueryLog()); // Show results of log
+        $recipes = Recette::getRecetteContainingAliments($ids);
 
         return response()->json($recipes);
     }
 
     /**
-     * 
+     *
      *
      * @param  \App\Aliment  $aliment
-     * @return \Illuminate\Http\Response
+     * @return String
      */
     public function recetteJSON(){
         $recettes = Recette::allWithCreatorName();
 
         return $recettes->toJson();
+//        return response()->json($recettes);
     }
 }
