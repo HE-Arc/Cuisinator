@@ -149,7 +149,7 @@ class RecettesController extends Controller
      * @return String
      */
     public function recetteJSON(){
-        $recettes = Recette::allWithCreatorName();
+        $recettes = Recette::with('creator')->get();
 
         return $recettes->toJson();
 //        return response()->json($recettes);

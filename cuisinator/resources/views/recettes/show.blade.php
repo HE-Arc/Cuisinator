@@ -15,7 +15,7 @@
                     <img class="rounded mx-auto my-2 d-block" src="{{URL::asset('photos-recettes/' . $recette->nom_photo)}}" alt="{{$recette->nom}} image"/>
                 </div>
             </div>
-            
+
             <div class="row">
                 <div class="col-md-3 p-3">
                     <h3>Ingrédients</h3>

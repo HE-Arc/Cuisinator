@@ -9,7 +9,7 @@
                 <p>Nom: {{$a->nom}}</p>
             </div>
             <div class="col-md-3">
-                <p>Créateur: {{$a->id_createur}}</p>
+                <p>Créateur: {{$a->creator->name}}</p>
             </div>
             <div class="col-md-6">
             </div>

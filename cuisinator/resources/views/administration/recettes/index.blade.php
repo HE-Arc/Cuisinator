@@ -21,7 +21,7 @@
                 @foreach($recettes as $recette)
                 <tr id="recette{{$recette->id}}">
                     <td>{{$recette->nom}}</td>
-                    <td>{{$recette->username}}</td>
+                    <td>{{$recette->creator->name}}</td>
                     
                     <td><img src="{{ URL::asset('photos-recettes/' . ((!is_null($recette->nom_photo))? $recette->nom_photo : "default.jpg" )) }}" alt="{{$recette->nom_photo}}" class="img-thumbnail"></td>
                     <td>{{$recette->description}}</td>

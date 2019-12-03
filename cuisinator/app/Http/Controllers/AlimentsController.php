@@ -9,8 +9,10 @@ use App\Recette;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
+
 class AlimentsController extends Controller
 {
+       
     /**
      * Display a listing of the resource.
      *
@@ -150,7 +152,7 @@ class AlimentsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function alimentsJSON(){
-        $alim = Aliment::allWithCreatorName();
+        $alim = Aliment::with('creator')->get();
 
         return $alim->toJson();
     }
@@ -162,7 +164,7 @@ class AlimentsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function test(){
-        $recettes = Recette::getAllAliments();
+        $recettes = Recette::with('aliments')->get();
         return $recettes->toJson();
     }
 }

@@ -16,22 +16,22 @@ class AdministrationController extends Controller
     }
     public function index()
     {
-        $aliments = Aliment::allWithCreatorName();
-        $recettes = Recette::allWithCreatorName();
+        $aliments = Aliment::with('creator')->get();
+        $recettes = Recette::with('creator')->get();
 
         return view("administration.index", ['aliments' => $aliments, 'recettes' => $recettes]);
     }
 
     public function indexAliments()
     {
-        $aliments = Aliment::allWithCreatorName();
+        $aliments = Aliment::with('creator')->get();
 
         return view("administration.aliments.index", ['aliments' => $aliments]);
     }
 
     public function indexRecettes()
     {
-        $recettes = Recette::allWithCreatorName();
+        $recettes = Recette::with('creator')->get();
         $aliments = Aliment::all();
         $unites = Unite::all();
 
