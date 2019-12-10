@@ -21,12 +21,12 @@
 
                         <div class="row mb-auto" id="tous-aliments">
                             @foreach($aliments as $a)
-                                <figure class="figure col-lg-4 col-md-12 col-sm-3 col-xs-6 draggable" id="{{$loop->index +1}}" draggable="true" ondragstart="drag(event)">
+                                <figure class="figure col-lg-4 col-md-12 col-sm-3 col-xs-6 draggable" id="{{$loop->index +1}}" ondragstart="drag(event)">
                                     <div>
                                         <img src="{{ URL::asset('photos-aliments/' . ((!is_null($a->nom_photo))? $a->nom_photo : "default.jpg" )) }}"
-                                             alt="{{$a->nom}}" class="figure-img rounded aliment-image-icon" ondrop="return false;" ondragover="return false;" />
+                                             alt="{{$a->nom}}" class="figure-img rounded aliment-image-icon"/>
                                     </div>
-                                    <figcaption class="figure-caption nom" ondrop="return false;" ondragover="return false;">{{$a->nom}}</figcaption>
+                                    <figcaption class="figure-caption nom">{{$a->nom}}</figcaption>
                                 </figure>
                             @endforeach
                         </div>
@@ -81,7 +81,9 @@
             findRecipes();
         }
 
-        $(".draggable").click(function() {
+        let draggables = $(".draggable");
+        draggables.attr('draggable', true);
+        draggables.click(function() {
             document.getElementById("tous-aliments").removeChild(this);
             document.getElementById("alims").appendChild(this);
             findRecipes();
