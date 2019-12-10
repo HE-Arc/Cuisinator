@@ -19,8 +19,8 @@ class RecettesController extends Controller
     public function index()
     {
         //
-        $aliments = Aliment::all();
-        return view("recettes.index", ['aliments' => $aliments]);
+        $recettes = Recette::all();
+        return view("recettes.index", ['recettes' => $recettes]);
     }
 
     /**
@@ -126,20 +126,6 @@ class RecettesController extends Controller
             'error' => false,
             'message' => $recette,
         ], 200);
-    }
-
-    /**
-     * @param Request $request
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function getRecetteFromAliments(Request $request)
-    {
-        $path = explode("/", $request->path());
-        $ids = explode(",", end($path));
-
-        $recipes = Recette::getRecetteContainingAliments($ids);
-
-        return response()->json($recipes);
     }
 
     /**
