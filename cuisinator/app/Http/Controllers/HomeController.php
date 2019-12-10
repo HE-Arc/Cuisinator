@@ -25,6 +25,6 @@ class HomeController extends Controller
     public function index()
     {
         $aliments = Aliment::all();
-        return view("recettes.index", ['aliments' => $aliments]);
+        return view("home", ['aliments' => $aliments]);
     }
 }
