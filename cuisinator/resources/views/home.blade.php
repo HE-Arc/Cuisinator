@@ -14,11 +14,9 @@
                             <div class="col-12 spaced-bottom">
                                 <form class="form-inline">
                                     <input class="form-control col" id="search-box" type="search" placeholder="Chercher un aliment" />
-                                    <!--<button class="form-control btn btn-success justify-content-end" type="submit"><i class="fas fa-findRecipes"></i></button>-->
                                 </form>
                             </div>
                         </div>
-
                         <div class="row mb-auto" id="tous-aliments">
                             @foreach($aliments as $a)
                                 <figure class="figure col-lg-4 col-md-12 col-sm-3 col-xs-6 draggable" id="{{$loop->index +1}}" ondragstart="drag(event)">
@@ -37,7 +35,6 @@
                 <div class="container fill-parent">
                     <div class="row p-3 border bg-light rounded-lg fill-parent" id="liste-aliments-possedes" ondrop="AddAlimentDragDrop(event)" ondragover="allowDrop(event)">
                         <div class="row mb-auto" id="alims">
-
                         </div>
                     </div>
                 </div>
@@ -45,8 +42,7 @@
             <div class="col-md-6 container spaced-inside fill-parent">
                 <div class="container fill-parent">
                     <div class="row p-3 border bg-light rounded-lg fill-parent">
-                        <div class="row mb-auto" id="recettes">
-
+                        <div class="row mb-auto w-100" id="recettes">
                         </div>
                     </div>
                 </div>
@@ -57,21 +53,21 @@
 
 @section('scripts')
     <script type="text/javascript">
-        function allowDrop(ev) {
+        function allowDrop(ev){
             ev.preventDefault();
             ev.dataTransfer.dropEffect = "move";
         }
 
-        function preventDrop(ev) {
+        function preventDrop(ev){
             ev.preventDefault();
             return false;
         }
 
-        function drag(ev) {
+        function drag(ev){
             ev.dataTransfer.setData("text/plain", ev.target.id);
         }
 
-        function AddAlimentDragDrop(ev) {
+        function AddAlimentDragDrop(ev){
             ev.preventDefault();
             // Get the id of the target and add the moved element to the target's DOM
             let data = ev.dataTransfer.getData("text/plain");
@@ -81,7 +77,7 @@
             findRecipes();
         }
 
-        function removeAlimentDragDrop(ev) {
+        function removeAlimentDragDrop(ev){
             ev.preventDefault();
             // Get the id of the target and add the moved element to the target's DOM
             let data = ev.dataTransfer.getData("text/plain");
@@ -94,14 +90,11 @@
         let draggables = $(".draggable");
         draggables.attr('draggable', true);
         draggables.click(function() {
-
-            if($(this).parents("#tous-aliments").length !== 0)
-            {
+            if($(this).parents("#tous-aliments").length !== 0){
                 document.getElementById("tous-aliments").removeChild(this);
                 document.getElementById("alims").appendChild(this);
             }
-            else
-            {
+            else{
                 document.getElementById("alims").removeChild(this);
                 document.getElementById("tous-aliments").appendChild(this);
             }
@@ -109,11 +102,11 @@
             findRecipes();
         });
 
-        function findRecipes() {
+        function findRecipes(){
             let ids = [];
             let alims = $("#alims");
 
-            alims.children().each(function() {
+            alims.children().each(function(){
                 ids.push(this.id);
             });
 
@@ -133,22 +126,27 @@
                     photo: $("#edit-aliment-photo").val(),
                 },
                 dataType: 'json',
-                success: function (data) {
+                success: function (data){
                     let recipes = $("#recettes");
 
+                    console.log(data);
+
                     for (let i = 0; i < data.length; ++i) {
-                        let figure = "<figure class=\"figure col-lg-4 col-md-12 col-sm-3 col-xs-6 \" id=\"" + data[i].id + "\">";
-                        figure += "<div>";
-                        figure += '<img src="' + {!! '"'.URL::asset('photos-recettes/').'"' !!} + "/" + data[i].nom_photo + '"'
-                            + 'alt="Image de ' + data[i].nom + '" class="figure-img rounded recette-image-icon" />';
-                        figure += "</div>";
+                        let figure = "<figure class=\"figure col-lg-4 col-md-6 col-sm-6 col-xs-6 \" id=\"" + data[i].id + "\">";
+                        figure += '<a class="" data-toggle="collapse" href="#collapseRecette' + data[i].id + '" role="button" aria-expanded="false" aria-controls="collapseExample">';
+                        figure += '<img src="' + {!! '"'.URL::asset('photos-recettes/').'"' !!} + "/" + data[i].nom_photo + '"';
+                        figure += 'alt="Image de ' + data[i].nom + '" class="figure-img rounded recette-image-icon" />';
+                        figure += "</a>";
                         figure += "<figcaption class=\"figure-caption\" >" + data[i].nom + "</figcaption>";
+                        figure += '<div class="collapse" id="collapseRecette' + data[i].id + '"><div class="card card-body">';
+                        figure += '<a class="standard-link-text" href="recettes/' + data[i].id + '">' + data[i].description + '</a>';
+                        figure += '</div></div>';
                         figure += "</figure>";
-                        recipes.html(figure);
+                        recipes.append(figure);
                     }
                 },
-                error: function (data) {
-                    var errors = $.parseJSON(data.responseText);
+                error: function (data){
+                    let errors = $.parseJSON(data.responseText);
                     $('#edit-aliment-errors').html('');
                     $.each(errors.messages, function (key, value) {
                         $('#edit-aliment-errors').append('<li>' + value + '</li>');
@@ -158,7 +156,7 @@
             });
         }
 
-        $("#search-box").on('input',function () {
+        $("#search-box").on('input',function (){
             let searchedString = $("#search-box").val().toLowerCase();
 
             let figures = $("#tous-aliments>figure");
