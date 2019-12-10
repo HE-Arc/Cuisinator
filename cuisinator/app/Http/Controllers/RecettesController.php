@@ -6,7 +6,6 @@ use App\Aliment;
 use App\Quantite;
 use App\Recette;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
 class RecettesController extends Controller
