@@ -26,7 +26,7 @@
                                         <img src="{{ URL::asset('photos-aliments/' . ((!is_null($a->nom_photo))? $a->nom_photo : "default.jpg" )) }}"
                                              alt="{{$a->nom}}" class="figure-img rounded aliment-image-icon" ondrop="return false;" ondragover="return false;" />
                                     </div>
-                                    <figcaption class="figure-caption" ondrop="return false;" ondragover="return false;">{{$a->nom}}</figcaption>
+                                    <figcaption class="figure-caption nom" ondrop="return false;" ondragover="return false;">{{$a->nom}}</figcaption>
                                 </figure>
                             @endforeach
                         </div>
@@ -132,11 +132,20 @@
             });
         }
 
-        function search() {
-            // $("#tous-aliments").filter(function() {
-            //
-            // }
+        $("#search-box").on('input',function () {
+            let searchedString = $("#search-box").val().toLowerCase();
 
-        }
+            let figures = $("#tous-aliments>figure");
+            figures.show();
+
+            figures.filter(function() {
+
+                console.log(searchedString);
+                console.log($('.nom', this).html().toLowerCase());
+                console.log($('.nom', this).html().toLowerCase().indexOf(searchedString) < 0);
+
+                return $('.nom', this).html().toLowerCase().indexOf(searchedString) < 0 ;
+            }).hide();
+        });
     </script>
 @endsection
