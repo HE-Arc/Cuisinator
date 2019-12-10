@@ -45,7 +45,7 @@
             <div class="col-md-6 container spaced-inside fill-parent">
                 <div class="container fill-parent">
                     <div class="row p-3 border bg-light rounded-lg fill-parent">
-                        <div class="row mb-auto" id="recettes">
+                        <div class="row mb-auto w-100" id="recettes">
 
                         </div>
                     </div>
@@ -136,15 +136,20 @@
                 success: function (data) {
                     let recipes = $("#recettes");
 
+                    console.log(data);
+
                     for (let i = 0; i < data.length; ++i) {
-                        let figure = "<figure class=\"figure col-lg-4 col-md-12 col-sm-3 col-xs-6 \" id=\"" + data[i].id + "\">";
-                        figure += "<div>";
+                        let figure = "<figure class=\"figure col-lg-4 col-md-6 col-sm-6 col-xs-6 \" id=\"" + data[i].id + "\">";
+                        figure += '<a class="" data-toggle="collapse" href="#collapseRecette' + data[i].id + '" role="button" aria-expanded="false" aria-controls="collapseExample">';
                         figure += '<img src="' + {!! '"'.URL::asset('photos-recettes/').'"' !!} + "/" + data[i].nom_photo + '"'
                             + 'alt="Image de ' + data[i].nom + '" class="figure-img rounded recette-image-icon" />';
-                        figure += "</div>";
+                        figure += "</a>";
                         figure += "<figcaption class=\"figure-caption\" >" + data[i].nom + "</figcaption>";
+                        figure += '<div class="collapse" id="collapseRecette' + data[i].id + '"><div class="card card-body">';
+                        figure += '<a class="standard-link-text" href="recettes/' + data[i].id + '">' + data[i].description + '</a>';
+                        figure += '</div></div>';
                         figure += "</figure>";
-                        recipes.html(figure);
+                        recipes.append(figure);
                     }
                 },
                 error: function (data) {
