@@ -69,7 +69,7 @@ class RecettesController extends Controller
 
         return response()->json([
             'error' => false,
-            'aliment'  => "kingfood"
+            'aliment'  => "kf"
         ], 200);
     }
 

@@ -17,6 +17,7 @@ class Aliment extends Model
         return $this->belongsToMany('App\Recette', 'quantites', 'id_aliment','id_recette')
         ->as('quantites')
         ->using('App\Quantite')
-        ->withPivot('qte', 'id_unite');
+        ->withPivot('qte', 'id_unite')
+        ->withTimestamps();
     }
 }
