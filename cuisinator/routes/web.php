@@ -24,7 +24,7 @@ Route::get('alimentsJSON','AlimentsController@alimentsJSON')->name('alimentsJSON
 Route::get('test','AlimentsController@test')->name('test');
 Route::resource('recettes', 'RecettesController');
 Route::get('recettesJSON','RecettesController@recetteJSON')->name('recettesJSON');
-Route::get('find/{query}', 'RecettesController@getRecetteFromAliments')->where('query','.+');
+Route::get('find/{query}', 'HomeController@getRecetteFromAliments')->where('query','.+');
 
 Route::get('/administration', 'AdministrationController@index')->name('Administration');
 Route::get('/administration/aliments', 'AdministrationController@indexAliments')->name('administrationAliments');

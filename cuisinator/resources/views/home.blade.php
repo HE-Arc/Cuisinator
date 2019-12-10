@@ -13,21 +13,21 @@
                         <div class="row w-100 mx-auto">
                             <div class="col-12 spaced-bottom">
                                 <form class="form-inline">
-                                    <input class="form-control col" type="search" placeholder="Chercher un aliment" />
-                                    <!--<button class="form-control btn btn-success justify-content-end" type="submit"><i class="fas fa-search"></i></button>-->
+                                    <input class="form-control col" id="search-box" type="search" placeholder="Chercher un aliment" />
+                                    <!--<button class="form-control btn btn-success justify-content-end" type="submit"><i class="fas fa-findRecipes"></i></button>-->
                                 </form>
                             </div>
                         </div>
 
-                        <div class="row mb-auto">
+                        <div class="row mb-auto" id="tous-aliments">
                             @foreach($aliments as $a)
-                            <figure class="figure col-lg-4 col-md-12 col-sm-3 col-xs-6 draggable" draggable="true" ondragstart="drag(event)" id="{{$loop->index +1}}" ondrop="return false;" ondragover="return false;">
-                                <div class="" ondrop="return false;" ondragover="return false;">
-                                    <img src="{{ URL::asset('photos-aliments/' . ((!is_null($a->nom_photo))? $a->nom_photo : "default.jpg" )) }}"
-                                         alt="{{$a->nom}}" class="figure-img rounded aliment-image-icon" ondrop="return false;" ondragover="return false;" />
-                                </div>
-                                <figcaption class="figure-caption" ondrop="return false;" ondragover="return false;">{{$a->nom}}</figcaption>
-                            </figure>
+                                <figure class="figure col-lg-4 col-md-12 col-sm-3 col-xs-6 draggable" id="{{$loop->index +1}}" draggable="true" ondragstart="drag(event)">
+                                    <div>
+                                        <img src="{{ URL::asset('photos-aliments/' . ((!is_null($a->nom_photo))? $a->nom_photo : "default.jpg" )) }}"
+                                             alt="{{$a->nom}}" class="figure-img rounded aliment-image-icon" ondrop="return false;" ondragover="return false;" />
+                                    </div>
+                                    <figcaption class="figure-caption" ondrop="return false;" ondragover="return false;">{{$a->nom}}</figcaption>
+                                </figure>
                             @endforeach
                         </div>
                     </div>
@@ -78,22 +78,17 @@
             // console.log(data);
             // console.log(ev.target.childNodes[1]);
             document.getElementById("alims").appendChild(document.getElementById(data));
-            search();
+            findRecipes();
         }
 
-        function search() {
+        function findRecipes() {
 
             let ids = [];
             let alims = $("#alims");
 
-            // console.log(alims);
-            // console.log(alims.children);
-
             alims.children().each(function() {
                 ids.push(this.id);
             });
-
-            // console.log(ids);
 
             $.ajaxSetup({
                 headers: {
@@ -118,7 +113,7 @@
                         let figure = "<figure class=\"figure col-lg-4 col-md-12 col-sm-3 col-xs-6 \" id=\"" + data[i].id + "\">";
                         figure += "<div>";
                         figure += '<img src="' + {!! '"'.URL::asset('photos-recettes/').'"' !!} + "/" + data[i].nom_photo + '"'
-                                    + 'alt="Image de ' + data[i].nom + '" class="figure-img rounded recette-image-icon" />';
+                            + 'alt="Image de ' + data[i].nom + '" class="figure-img rounded recette-image-icon" />';
                         figure += "</div>";
                         figure += "<figcaption class=\"figure-caption\" >" + data[i].nom + "</figcaption>";
                         figure += "</figure>";
@@ -135,6 +130,13 @@
                     $("#edit-error-bag").show();
                 }
             });
+        }
+
+        function search() {
+            // $("#tous-aliments").filter(function() {
+            //
+            // }
+
         }
     </script>
 @endsection
