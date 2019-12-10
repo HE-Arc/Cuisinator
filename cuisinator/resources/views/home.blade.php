@@ -9,7 +9,7 @@
         <div class="row fill-parent">
             <div class="col-md-3 container spaced-inside fill-parent">
                 <div class="container fill-parent">
-                    <div class="row p-3 border bg-light rounded-lg fill-parent" id="liste-aliments">
+                    <div class="row p-3 border bg-light rounded-lg fill-parent" id="liste-aliments" ondrop="removeAlimentDragDrop(event)" ondragover="allowDrop(event)">
                         <div class="row w-100 mx-auto">
                             <div class="col-12 spaced-bottom">
                                 <form class="form-inline">
@@ -21,12 +21,12 @@
 
                         <div class="row mb-auto" id="tous-aliments">
                             @foreach($aliments as $a)
-                                <figure class="figure col-lg-4 col-md-12 col-sm-3 col-xs-6 draggable" id="{{$loop->index +1}}" draggable="true" ondragstart="drag(event)">
+                                <figure class="figure col-lg-4 col-md-12 col-sm-3 col-xs-6 draggable" id="{{$loop->index +1}}" ondragstart="drag(event)">
                                     <div>
                                         <img src="{{ URL::asset('photos-aliments/' . ((!is_null($a->nom_photo))? $a->nom_photo : "default.jpg" )) }}"
-                                             alt="{{$a->nom}}" class="figure-img rounded aliment-image-icon" ondrop="return false;" ondragover="return false;" />
+                                             alt="{{$a->nom}}" class="figure-img rounded aliment-image-icon"/>
                                     </div>
-                                    <figcaption class="figure-caption nom" ondrop="return false;" ondragover="return false;">{{$a->nom}}</figcaption>
+                                    <figcaption class="figure-caption nom">{{$a->nom}}</figcaption>
                                 </figure>
                             @endforeach
                         </div>
@@ -35,7 +35,7 @@
             </div>
             <div class="col-md-3 container spaced-inside fill-parent">
                 <div class="container fill-parent">
-                    <div class="row p-3 border bg-light rounded-lg fill-parent" id="liste-aliments-possedes" ondrop="drop(event)" ondragover="allowDrop(event)">
+                    <div class="row p-3 border bg-light rounded-lg fill-parent" id="liste-aliments-possedes" ondrop="AddAlimentDragDrop(event)" ondragover="allowDrop(event)">
                         <div class="row mb-auto" id="alims">
 
                         </div>
@@ -71,7 +71,7 @@
             ev.dataTransfer.setData("text/plain", ev.target.id);
         }
 
-        function drop(ev) {
+        function AddAlimentDragDrop(ev) {
             ev.preventDefault();
             // Get the id of the target and add the moved element to the target's DOM
             let data = ev.dataTransfer.getData("text/plain");
@@ -81,9 +81,31 @@
             findRecipes();
         }
 
-        $(".draggable").click(function() {
-            document.getElementById("tous-aliments").removeChild(this);
-            document.getElementById("alims").appendChild(this);
+        function removeAlimentDragDrop(ev) {
+            ev.preventDefault();
+            // Get the id of the target and add the moved element to the target's DOM
+            let data = ev.dataTransfer.getData("text/plain");
+            // console.log(data);
+            // console.log(ev.target.childNodes[1]);
+            document.getElementById("tous-aliments").appendChild(document.getElementById(data));
+            findRecipes();
+        }
+
+        let draggables = $(".draggable");
+        draggables.attr('draggable', true);
+        draggables.click(function() {
+
+            if($(this).parents("#tous-aliments").length !== 0)
+            {
+                document.getElementById("tous-aliments").removeChild(this);
+                document.getElementById("alims").appendChild(this);
+            }
+            else
+            {
+                document.getElementById("alims").removeChild(this);
+                document.getElementById("tous-aliments").appendChild(this);
+            }
+
             findRecipes();
         });
 
@@ -94,6 +116,8 @@
             alims.children().each(function() {
                 ids.push(this.id);
             });
+
+            $("#recettes").html("");
 
             $.ajaxSetup({
                 headers: {
@@ -111,7 +135,6 @@
                 dataType: 'json',
                 success: function (data) {
                     let recipes = $("#recettes");
-                    console.log(data);
 
                     for (let i = 0; i < data.length; ++i) {
                         let figure = "<figure class=\"figure col-lg-4 col-md-12 col-sm-3 col-xs-6 \" id=\"" + data[i].id + "\">";
