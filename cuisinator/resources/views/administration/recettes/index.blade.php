@@ -5,7 +5,7 @@
 @section('content')
     <h1>Administration</h1>
     <h2>Recettes</h2>
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addRecetteModal">Ajouter</button>
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addRecetteModal" data-mode="add">Ajouter</button>
     <div class="container">
         <div class="row">
             <div class="col-sm">
@@ -15,6 +15,8 @@
                             <th scope="col">Nom</th>
                             <th scope="col">Créateur</th>
                             <th scope="col">Image</th>
+                            <th scope="col">Description</th>
+                            <th scope="col">Etapes</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -28,7 +30,7 @@
                     <td>{{$recette->steps}}</td>
                     <td>
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#deleteRecetteModal" data-id="{{$recette->id}}">Supprimer</button>
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#updateRecetteModal" data-id="{{$recette->id}}" data-nom="{{$recette->nom}}" data-nomPhoto="{{$recette->nom_photo}}">Modifier</button>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-mode="update" data-target="#addRecetteModal" data-id="{{$recette->id}}" data-nom="{{$recette->nom}}" data-nomPhoto="{{$recette->nom_photo}}" data-description="{{$recette->description}}" data-steps="{{$recette->steps}}" data-aliments="{{$recette->aliments}}">Modifier</button>
                     </td>
                 </tr>
                 @endforeach
@@ -60,6 +62,8 @@
                         tbody.append("<td>" + data[i]['nom']  + "</td>");
                         tbody.append("<td>" + data[i]['username']  + "</td>");
                         tbody.append('<td><img src="' + imagePath + (data[i]['nom_photo'] === null ? "default.jpg" : data[i]['nom_photo']) + '" class="img-thumbnail" alt="' + data[i]['nom_photo'] + '"></td>');
+                        tbody.append("<td>" + data[i]['description']  + "</td>");
+                        tbody.append("<td>" + data[i]['steps']  + "</td>");
                         tbody.append(`<td> 
                             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#deleteRecetteModal" data-id="` + data[i]['id'] + `">Supprimer</button>
                             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#updateRecetteModal" data-id="` + data[i]['id'] + `" data-nom="` + data[i]['nom'] + `" data-nomPhoto="` + data[i]['nom_photo'] + `">Modifier</button>
@@ -76,6 +80,5 @@
 
     @include('administration.modals.recette.add')
     @include('administration.modals.recette.delete')
-    @include('administration.modals.recette.update')
 @endsection
  

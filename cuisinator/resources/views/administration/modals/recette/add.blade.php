@@ -16,6 +16,7 @@
                 </div>
                 <form id="frmAddRecette" enctype="multipart/form-data">
                     <div class="form-group">
+                        <input type="hidden" id="update-recette-id" name="id_recette" value="">
                         <input type="hidden" id="add-recette-id" name="id_createur" value="{{ Auth::user()->id }}" >
                             
                         @csrf
@@ -45,7 +46,7 @@
                                 </select>
                             </div>
                             <div class="col">
-                                <input type="number" class="form-control" name="recette[0][quantite]">
+                                <input type="number" step="0.1" class="form-control" name="recette[0][quantite]">
                             </div>
                             <div class="col">
                                 <select class="custom-select mr-sm-2" name="recette[0][unite]">
@@ -80,20 +81,66 @@
 
 <script>
 var nbIngredientForm = 0;
+var modeModal = ""
 $("#btn-ingredient").on("click", function(){
     
-    let htmlElement = $("#ingredient-form" + nbIngredientForm).clone()
+    let htmlCopy = $("#ingredient-form0").clone();
+
     nbIngredientForm++;
     $("#ingredient-container").append('<div class="row" id="ingredient-form' + nbIngredientForm + '"></div>');
-    $("#ingredient-form" + nbIngredientForm).append(htmlElement[0].children);
+    let enfants = Array.from(htmlCopy[0].children);
+    $("#ingredient-form" + nbIngredientForm).append(enfants);
 
-    htmlElement = $("#ingredient-form" + nbIngredientForm)
-    $(htmlElement[0].children[0].children[0]).attr("name","recette[" + nbIngredientForm + "][aliment]");
-    $(htmlElement[0].children[1].children[0]).attr("name","recette[" + nbIngredientForm + "][quantite]");
-    $(htmlElement[0].children[2].children[0]).attr("name","recette[" + nbIngredientForm + "][unite]");
+    let html = $("#ingredient-form" + nbIngredientForm)
+    console.log(html[0].children)
+    $(html[0].children[0].children[0]).attr("name","recette[" + nbIngredientForm + "][aliment]");
+    $(html[0].children[1].children[0]).attr("name","recette[" + nbIngredientForm + "][quantite]");
+    $(html[0].children[2].children[0]).attr("name","recette[" + nbIngredientForm + "][unite]");
 
     }
 );
+
+$('#addRecetteModal').on('show.bs.modal', function (event) {
+    let button = $(event.relatedTarget);
+    let modal = $(this)
+
+    modeModal = button.data('mode');
+
+    if(modeModal === "update"){
+        modal.find("#update-recette-id").val(button.data('id'));
+        modal.find('#add-recette-nom').val(button.data('nom'));
+        modal.find("#add-recette-description").val(button.data('description'));
+        modal.find("#add-recette-steps").val(button.data('steps'));
+        modal.find("#add-recette-photo").val(button.data('nomPhoto'))
+        let tabAliments = button.data('aliments');
+
+        // clone and delete the intial input
+        let htmlToCopy = $("#ingredient-form0").clone();
+        $("#ingredient-form0").remove();
+
+        for (let i = 0; i < tabAliments.length; i++){
+            $("#ingredient-container").append('<div class="row" id="ingredient-form' + nbIngredientForm + '"></div>');
+            let enfants = Array.from(htmlToCopy[0].children);
+
+            $("#ingredient-form" + nbIngredientForm).append(enfants);
+
+            let html = $("#ingredient-form" + nbIngredientForm)
+            console.log(tabAliments[i].nom);
+            console.log(nbIngredientForm);
+
+            $(html[0].children[0].children[0]).attr("name","recette[" + nbIngredientForm + "][aliment]");
+            $(html[0].children[0].children[0]).val(tabAliments[i].id);
+            $(html[0].children[1].children[0]).attr("name","recette[" + nbIngredientForm + "][quantite]");
+            $(html[0].children[1].children[0]).val(tabAliments[i].quantites.qte);
+            $(html[0].children[2].children[0]).attr("name","recette[" + nbIngredientForm + "][unite]");
+            $(html[0].children[2].children[0]).val(tabAliments[i].quantites.id_unite);
+
+            htmlToCopy = $("#ingredient-form" + nbIngredientForm).clone();
+            nbIngredientForm++;
+        }
+    }
+    })
+
 $('#addRecetteModal').on('hidden.bs.modal', function () {
     $('#add-recette-errors').html("");
     $('#add-error-bag').hide();
@@ -111,9 +158,20 @@ $("#frmAddRecette").on("submit", function(e){
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
     });
+
+    let route = "";
+    let methodType = "";
+
+    if(modeModal === "add"){
+        route = '{{ route('recettes.store')}}';
+        methodType = "POST";
+    } else {
+        route = '{{ route('recettes.index')}}/' + $("#update-recette-id").val();
+        methodType = "PUT";
+    }
     $.ajax({
-        type: 'POST',
-        url: '{{ route('recettes.store')}}',
+        type: methodType,
+        url: route,
         data : new FormData(this),
         processData: false,
         contentType: false,
@@ -123,13 +181,13 @@ $("#frmAddRecette").on("submit", function(e){
             updatePage();
         },
         error: function(data) {
-            let errors = $.parseJSON(data.responseText);
-            $('#add-recette-errors').html('');
-            $.each(errors.messages, function(key, value) {
-                $('#add-recette-errors').append('<li>' + value + '</li>');
-            });
-            $("#add-error-bag").show(); 
-            }
+        let errors = $.parseJSON(data.responseText);
+        $('#add-recette-errors').html('');
+        $.each(errors.messages, function(key, value) {
+            $('#add-recette-errors').append('<li>' + value + '</li>');
         });
-    });
+        $("#add-error-bag").show(); 
+        }
+     });
+});
 </script>

@@ -95,7 +95,7 @@ class RecettesController extends Controller
      */
     public function edit(Recette $recette)
     {
-        //
+        return $recette;
     }
 
     /**
