@@ -77,7 +77,7 @@
             let data = ev.dataTransfer.getData("text/plain");
             // console.log(data);
             // console.log(ev.target.childNodes[1]);
-            ev.target.childNodes[1].appendChild(document.getElementById(data));
+            document.getElementById("alims").appendChild(document.getElementById(data));
             search();
         }
 
