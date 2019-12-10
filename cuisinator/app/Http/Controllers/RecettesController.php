@@ -129,20 +129,6 @@ class RecettesController extends Controller
     }
 
     /**
-     * @param Request $request
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function getRecetteFromAliments(Request $request)
-    {
-        $path = explode("/", $request->path());
-        $ids = explode(",", end($path));
-
-        $recipes = Recette::getRecetteContainingAliments($ids);
-
-        return response()->json($recipes);
-    }
-
-    /**
      *
      *
      * @param  \App\Aliment  $aliment
