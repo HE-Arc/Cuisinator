@@ -81,8 +81,13 @@
             findRecipes();
         }
 
-        function findRecipes() {
+        $(".draggable").click(function() {
+            document.getElementById("tous-aliments").removeChild(this);
+            document.getElementById("alims").appendChild(this);
+            findRecipes();
+        });
 
+        function findRecipes() {
             let ids = [];
             let alims = $("#alims");
 
@@ -105,7 +110,6 @@
                 },
                 dataType: 'json',
                 success: function (data) {
-
                     let recipes = $("#recettes");
                     console.log(data);
 
@@ -119,7 +123,6 @@
                         figure += "</figure>";
                         recipes.html(figure);
                     }
-
                 },
                 error: function (data) {
                     var errors = $.parseJSON(data.responseText);
@@ -139,11 +142,6 @@
             figures.show();
 
             figures.filter(function() {
-
-                console.log(searchedString);
-                console.log($('.nom', this).html().toLowerCase());
-                console.log($('.nom', this).html().toLowerCase().indexOf(searchedString) < 0);
-
                 return $('.nom', this).html().toLowerCase().indexOf(searchedString) < 0 ;
             }).hide();
         });
