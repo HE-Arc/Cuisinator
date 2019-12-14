@@ -7,39 +7,31 @@ body {
     height: 100vh;
     margin: 0;
 }
-
 .full-height {
     height: 75vh;
 }
-
 .fill-parent {
     height: 100%;
 }
-
 .flex-center {
     align-items: center;
     display: flex;
     justify-content: center;
 }
-
 .position-ref {
     position: relative;
 }
-
 .top-right {
     position: absolute;
     right: 10px;
     top: 18px;
 }
-
 .content {
     text-align: center;
 }
-
 .title {
     font-size: 84px;
 }
-
 .links>a {
     color: #636b6f;
     padding: 0 25px;
@@ -49,50 +41,31 @@ body {
     text-decoration: none;
     text-transform: uppercase;
 }
-
 .m-b-md {
     margin-bottom: 30px;
 }
-
 .bordered {
     border: 1px solid red;
 }
-
 .spaced-inside {
     padding: 1rem;
 }
-
 .spaced-bottom {
     margin-bottom: 1em;
 }
-
 .aliment-image-icon {
     object-fit: cover;
     width: 60px;
     height: 60px;
 }
-
 .recette-image-icon {
     object-fit: cover;
     width: 150px;
     height: 150px;
 }
-
-/*
-.aliment-image-icon {
-    width: 150px;
-    height: 100px;
-    background-image: url("http://i.stack.imgur.com/2OrtT.jpg");
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: 50% 50%;
-}
-*/
-
 .form-control-borderless {
     border: none;
 }
-
 .form-control-borderless:hover,
 .form-control-borderless:active,
 .form-control-borderless:focus {
@@ -100,7 +73,6 @@ body {
     outline: none;
     box-shadow: none;
 }
-
 .standard-link-text {
     color: black;
     text-decoration: none;

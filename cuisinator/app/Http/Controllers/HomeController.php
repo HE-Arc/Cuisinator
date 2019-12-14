@@ -30,6 +30,8 @@ class HomeController extends Controller
     }
 
     /**
+     * Returns in JSON the list of recipes containing at least one of the specified aliments.
+     *
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */

@@ -43,6 +43,8 @@ class Recette extends Model
     }
 
     /**
+     * Returns all the recipes containing at least one of our aliments
+     *
      * @param $alimentsIDs array containing the IDs of all the aliments
      * @return mixed The corresponding recipes
      */
