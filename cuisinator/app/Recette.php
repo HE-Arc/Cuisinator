@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Quantite;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
@@ -28,9 +29,21 @@ class Recette extends Model
         return $this->belongsTo('App\User', 'id_createur');
     }
 
+    public function updateRecette(Request $request){
+        $this->nom = $request->nom;
+        $this->description = $request->description;
+        $this->steps = $request->steps;
+        $this->save();
+
+        $aliments = $this->aliments();
+        
+        Quantite::where('id_recette', $this->id)->delete();
+        foreach ($request->recette as $quantity){
+            $aliments->attach(Aliment::find($quantity['aliment']), ['id_unite' => $quantity['unite'], 'qte' => $quantity['quantite']]);
+        }
+    }
+
     public static function insertRecette(Request $request){
-
-
         $newRecette = new Recette;
         $newRecette->nom = $request->nom;
         $newRecette->description = $request->description;

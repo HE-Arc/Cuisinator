@@ -15,7 +15,7 @@ use App\Http\Controllers\AlimentsController;
 
 Route::get('/', 'HomeController@index');
 
-Auth::routes(['register' => true]);
+Auth::routes(['register' => false]);
 
 Route::get('/home', 'HomeController@index')->name('home');
 
@@ -30,6 +30,7 @@ Route::get('/administration', 'AdministrationController@index')->name('Administr
 Route::get('/administration/aliments', 'AdministrationController@indexAliments')->name('administrationAliments');
 Route::get('/administration/recettes', 'AdministrationController@indexRecettes')->name('administrationRecettes');
 
+/*
 Route::get('profile', function () {
     // Only authenticated users may enter...
-})->middleware('auth');
+})->middleware('auth');*/

@@ -94,7 +94,7 @@ class RecettesController extends Controller
      */
     public function edit(Recette $recette)
     {
-        return $recette;
+
     }
 
     /**
@@ -106,7 +106,25 @@ class RecettesController extends Controller
      */
     public function update(Request $request, Recette $recette)
     {
-        //
+        $validation = Validator::make($request->all(), [
+            'nom' => 'required|max:50',
+            'id_createur' => 'required|max:50|numeric',
+            'description' => 'required|max:2000',
+            'steps' => 'required|max:2000',
+            "recette.*.aliment"=> 'required|max:50',
+            "recette.*.quantite"=> 'required|max:1000|numeric',
+            "recette.*.unite"=> 'required|max:1000|numeric',
+        ]);
+
+        if ($validation->fails()) {
+            return response()->json([
+                'error'    => true,
+                'messages' => $validation->errors(),
+            ], 422);
+        }
+
+        $recette->updateRecette($request);
+        $recette->save();
     }
 
     /**
@@ -134,9 +152,8 @@ class RecettesController extends Controller
      * @return String
      */
     public function recetteJSON(){
-        $recettes = Recette::with('creator')->get();
+        $recettes = Recette::with('aliments')->get();
 
         return $recettes->toJson();
-//        return response()->json($recettes);
     }
 }

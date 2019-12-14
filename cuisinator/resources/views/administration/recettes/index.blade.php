@@ -1,7 +1,4 @@
 @extends('template.app')
-
-
-
 @section('content')
     <h1>Administration</h1>
     <h2>Recettes</h2>
@@ -30,7 +27,7 @@
                     <td>{{$recette->steps}}</td>
                     <td>
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#deleteRecetteModal" data-id="{{$recette->id}}">Supprimer</button>
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-mode="update" data-target="#addRecetteModal" data-id="{{$recette->id}}" data-nom="{{$recette->nom}}" data-nomPhoto="{{$recette->nom_photo}}" data-description="{{$recette->description}}" data-steps="{{$recette->steps}}" data-aliments="{{$recette->aliments}}">Modifier</button>
+                    <button type="button" class="btn btn-primary" data-toggle="modal"  data-target="#addRecetteModal" data-mode="update" data-id="{{$recette->id}}" data-nom="{{$recette->nom}}" data-nomPhoto="{{$recette->nom_photo}}" data-description="{{$recette->description}}" data-steps="{{$recette->steps}} " data-aliments="{{$recette->aliments}}" >Modifier</button>
                     </td>
                 </tr>
                 @endforeach
@@ -43,17 +40,16 @@
 
         </div>
     </div>
-    <script>  
+    <script>
+        var tableauxAliments = "";
         function updatePage(){
             $.ajax({
                 url: "{{ route('recettesJSON')}}",
                 cache: false,
                 dataType: "json",
                 success: function(data){
-                    console.log(data);
-
                     let tbody = $("#tabRecettes").children("tbody");
-
+                    tableauxAliments = data;
                     let imagePath = "{{ URL::asset('photos-recettes/') }}/";
                     tbody.empty();
                     
@@ -66,9 +62,10 @@
                         tbody.append("<td>" + data[i]['steps']  + "</td>");
                         tbody.append(`<td> 
                             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#deleteRecetteModal" data-id="` + data[i]['id'] + `">Supprimer</button>
-                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#updateRecetteModal" data-id="` + data[i]['id'] + `" data-nom="` + data[i]['nom'] + `" data-nomPhoto="` + data[i]['nom_photo'] + `">Modifier</button>
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addRecetteModal" data-mode="update" data-id="` + data[i]['id'] + `" data-nom="` + data[i]['nom'] + `" data-nomPhoto="` + data[i]['nom_photo'] + `" data-description="` + data[i]['description'] + `"  data-steps="` + data[i]['steps'] + `" data-aliments='voirVariable'>Modifier</button>
                             </td>`);
                         tbody.append("</tr>");
+                        
                     }
                 },
                 error: function(data) {
@@ -76,9 +73,19 @@
                 }
             });
         }
+
+        function parseAlimentsTab(data){
+            
+            let arrays = [];
+            
+            for(let i = 0; i < data.length; i++){
+                arrays.push(JSON.stringify(data[i]));
+            }
+            return arrays;
+        }
         </script>
 
     @include('administration.modals.recette.add')
-    @include('administration.modals.recette.delete')
+
 @endsection
  

@@ -25,12 +25,11 @@
                     </p>
                 </div>
                 <div class="modal-footer">
-                    <input id="recetteID" name="recetteID" type="hidden" value="0">
+                    <input id="recetteID" name="recetteID" type="hidden" value="0"></input>
                         <input class="btn btn-default " data-dismiss="modal" type="button" id="btn-delete-cancel" value="Cancel">
                         <button class="btn btn-danger" id="btn-delete" type="button">
                                 Delete recette
-                        </button>                
-                    </input>
+                        </button>
                 </div>
             </form>
         </div>
@@ -40,8 +39,8 @@
 
 <script>
     $('#deleteRecetteModal').on('show.bs.modal', function (event) {
-        var button = $(event.relatedTarget) // Button that triggered the modal
-        var modal = $(this)
+        let button = $(event.relatedTarget) // Button that triggered the modal
+        let modal = $(this)
         modal.find("#recetteID").val(button.data('id'));
 
     });
