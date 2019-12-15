@@ -28,7 +28,7 @@ cd FOLDER_WEB
 # Laravel installation in production
 
 ```bash
-# Copy the exemple .env file
+# Copy the example .env file
 cp .env.prod .env
 ```
 
