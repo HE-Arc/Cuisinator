@@ -21,7 +21,7 @@ cd Cuisinator-master/
 # Move the folder cuisinator in the webserver folder
 mv ./cuisinator/ FOLDER_WEB
 
-# Go into the web server
+# Move into the fresh copied cuisinator folder
 cd FOLDER_WEB
 ```
 
