@@ -113,7 +113,6 @@ class AlimentsController extends Controller
             ], 422);
         }
         $aliment->nom =  $request->input('nom');
-        //$aliment->nom_photo = $request->input('photo');
 
         $aliment->save();
 
@@ -146,7 +145,7 @@ class AlimentsController extends Controller
     }
 
     /**
-     * 
+     * Get all the aliments with their creator's name
      *
      * @param  \App\Aliment  $aliment
      * @return \Illuminate\Http\Response
@@ -158,7 +157,7 @@ class AlimentsController extends Controller
     }
 
     /**
-     * 
+     *  Return all the aliments from a recette
      *
      * @param  \App\Aliment  $aliment
      * @return \Illuminate\Http\Response

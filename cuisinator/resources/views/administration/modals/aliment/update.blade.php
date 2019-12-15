@@ -9,79 +9,29 @@
       </div>
       <div class="modal-body">
         <div class="alert alert-danger collapse" id="edit-error-bag" role="alert">
-            <ul id="edit-aliment-errors">
-            </ul>
+          <ul id="edit-aliment-errors">
+          </ul>
         </div>
-        <form id="frmEditAliment" enctype="multipart/form-data"> 
-        <input type="hidden" name="_method" value="PUT">
-        @csrf
-          
-          <input type="hidden" id="edit-aliment-id" value="" >
-          
+        <form id="frmEditAliment" enctype="multipart/form-data">
+          <input type="hidden" name="_method" value="PUT">
+          @csrf
+
+          <input type="hidden" id="edit-aliment-id" value="">
+
           <div class="form-group">
             <label for="aliment-nom" class="col-form-label">Nom :</label>
             <input type="text" class="form-control" name="nom" id="edit-aliment-nom">
           </div>
-          <div class="form-group">
+          <div class="form-group d-none">
             <label for="aliment-image" class="col-form-label">Image :</label>
             <input type="file" class="form-control" name="photo" id="edit-aliment-photo">
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal" id="btn-edit-cancel">Close</button>
-            <button type="button" class="btn btn-primary" id="btn-edit-save">Save</button>
-        </div>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal" id="btn-edit-cancel">Annuler</button>
+            <button type="button" class="btn btn-primary" id="btn-edit-save">Sauvegarder</button>
+          </div>
         </form>
       </div>
     </div>
   </div>
 </div>
-
-<script>
-    $('#updateAlimentModal').on('show.bs.modal', function (event) {
-      var button = $(event.relatedTarget) // Button that triggered the modal
-      let alimentNom = button.data('nom') // Extract info from data-* attributes
-      let alimentPhoto = button.data('nomPhoto')
-      let alimentID = button.data('id')
-
-      // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
-      // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
-      var modal = $(this)
-      modal.find('#edit-aliment-nom').val(alimentNom)
-      modal.find('#edit-aliment-id').val(alimentID)
-    })
-
-    $('#updateAlimentModal').on('hidden.bs.modal', function () {
-        $('#edit-aliment-errors').html("");
-        $('#edit-error-bag').hide();
-    });
-    $("#btn-edit-save").click(function() {
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-        $.ajax({
-            type: 'PUT',
-            url: '{{ route('aliments.index')}}/' + $("#edit-aliment-id").val(),
-            data: {
-                "_token": "{{ csrf_token() }}",
-                nom: $("#edit-aliment-nom").val(),
-                photo: $("#edit-aliment-photo").val(),
-            },
-            dataType: 'json',
-            success: function(data) {
-                $('#frmEditAliment').trigger("reset");
-                $("#btn-edit-cancel").click();
-                updatePage();
-            },
-            error: function(data) {
-              var errors = $.parseJSON(data.responseText);
-              $('#edit-aliment-errors').html('');
-                $.each(errors.messages, function(key, value) {
-                    $('#edit-aliment-errors').append('<li>' + value + '</li>');
-                });
-                $("#edit-error-bag").show(); 
-            }
-        });
-    });
-</script>

@@ -64,11 +64,11 @@ class RecettesController extends Controller
         }
 
 
-        return Recette::insertRecette($request);
+        $response = Recette::insertRecette($request);
 
         return response()->json([
             'error' => false,
-            'aliment'  => "kf"
+            'aliment'  => $response,
         ], 200);
     }
 
@@ -125,6 +125,11 @@ class RecettesController extends Controller
 
         $recette->updateRecette($request);
         $recette->save();
+
+        return response()->json([
+            'error' => false,
+            'message' => $recette,
+        ], 200);
     }
 
     /**

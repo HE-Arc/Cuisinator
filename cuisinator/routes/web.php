@@ -29,8 +29,3 @@ Route::get('find/{query}', 'HomeController@getRecetteFromAliments')->where('quer
 Route::get('/administration', 'AdministrationController@index')->name('Administration');
 Route::get('/administration/aliments', 'AdministrationController@indexAliments')->name('administrationAliments');
 Route::get('/administration/recettes', 'AdministrationController@indexRecettes')->name('administrationRecettes');
-
-/*
-Route::get('profile', function () {
-    // Only authenticated users may enter...
-})->middleware('auth');*/

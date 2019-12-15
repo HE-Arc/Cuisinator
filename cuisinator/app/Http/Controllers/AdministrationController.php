@@ -10,18 +10,31 @@ use Illuminate\Http\Request;
 class AdministrationController extends Controller
 {
 
+    /**
+     * Constructor. Specifiy the need to use the middleware auth for authentication.
+     * Allow only authenticated user
+     * @return \Illuminate\Http\Response
+     */
     public function __construct()
     {
         $this->middleware('auth');
     }
+
+    /**
+     * Display the page with 2 buttons
+     * 
+     * @return \Illuminate\Http\Response
+     */
     public function index()
     {
-        $aliments = Aliment::with('creator')->get();
-        $recettes = Recette::with('creator')->get();
-
-        return view("administration.index", ['aliments' => $aliments, 'recettes' => $recettes]);
+        return view("administration.index");
     }
 
+    /**
+     * Display the admin page of aliments
+     * 
+     * @return \Illuminate\Http\Response
+     */
     public function indexAliments()
     {
         $aliments = Aliment::with('creator')->get();
@@ -29,6 +42,11 @@ class AdministrationController extends Controller
         return view("administration.aliments.index", ['aliments' => $aliments]);
     }
 
+    /**
+     * Display the admin page of recettes
+     * 
+     * @return \Illuminate\Http\Response
+     */
     public function indexRecettes()
     {
         $recettes = Recette::with('creator')->get();

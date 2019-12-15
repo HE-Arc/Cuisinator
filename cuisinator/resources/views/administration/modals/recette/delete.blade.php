@@ -11,8 +11,8 @@
                     </button>
                 </div>
                 <div class="alert alert-danger collapse" id="delete-error-bag" role="alert">
-                <ul id="delete-recette-errors">
-                </ul>
+                    <ul id="delete-recette-errors">
+                    </ul>
                 </div>
                 <div class="modal-body">
                     <p>
@@ -26,54 +26,12 @@
                 </div>
                 <div class="modal-footer">
                     <input id="recetteID" name="recetteID" type="hidden" value="0"></input>
-                        <input class="btn btn-default " data-dismiss="modal" type="button" id="btn-delete-cancel" value="Cancel">
-                        <button class="btn btn-danger" id="btn-delete" type="button">
-                                Delete recette
-                        </button>
+                    <input class="btn btn-default " data-dismiss="modal" type="button" id="btn-delete-cancel" value="Cancel">
+                    <button class="btn btn-danger" id="btn-delete" type="button">
+                        Delete recette
+                    </button>
                 </div>
             </form>
         </div>
     </div>
 </div>
-
-
-<script>
-    $('#deleteRecetteModal').on('show.bs.modal', function (event) {
-        let button = $(event.relatedTarget) // Button that triggered the modal
-        let modal = $(this)
-        modal.find("#recetteID").val(button.data('id'));
-
-    });
-    $('#deleteRecetteModal').on('hidden.bs.modal', function () {
-        $('#delete-recette-errors').html("");
-        $('#delete-error-bag').hide();
-    });
-
-
-    $("#btn-delete").click(function() {
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-        $.ajax({
-            type: 'DELETE',
-            url: '{{ route('recettes.index')}}/' + $("#recetteID").val(),
-            data: {
-                "_token": "{{ csrf_token() }}",
-            },
-            dataType: 'json',
-            success: function(data) {
-                $('#frmDeleteRecette').trigger("reset");
-                $("#btn-delete-cancel").click();
-                updatePage();
-            },
-            error: function(data) {
-                let errors = $.parseJSON(data.responseText);
-
-                $('#delete-recette-errors').append('<li>' + errors.message + '</li>');
-                $("#delete-error-bag").show(); 
-            }
-        });
-    });
-</script>
