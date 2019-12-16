@@ -8,6 +8,7 @@ class Quantite extends Pivot
 {
 
     protected $table = 'quantites';
+    protected $with = ['unite'];
 
     public function unite()
     {

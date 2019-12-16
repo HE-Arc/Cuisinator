@@ -8,13 +8,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
 class Recette extends Model
-{/*
-    public function aliments(){
-        return $this->belongsToMany('App\Aliment', 'quantites', 'id_recette', 'id_aliment')
-        ->as('quantites')
-        ->using('App\Quantite')
-        ->withPivot('qte','id_unite');
-    }*/
+{
 
     protected $fillable = ['nom_photo'];
     public function aliments(){
